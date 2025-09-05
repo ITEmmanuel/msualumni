@@ -1,0 +1,125 @@
+{% extends 'admin_portal/base.html' %}
+{% load static %}
+
+{% block title %}Communication - MSU IARO{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-msu-blue">Communication</h1>
+        <a href="{% url 'admin_portal:dashboard' %}" class="text-msu-blue hover:underline">← Back to Dashboard</a>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Communication Form -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold mb-4">Send Communication</h2>
+                
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    
+                    <div>
+                        <label for="{{ form.title.id_for_label }}" class="block text-gray-700 font-medium mb-2">Subject/Title</label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.title.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label for="{{ form.message.id_for_label }}" class="block text-gray-700 font-medium mb-2">Message</label>
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.message.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label for="{{ form.communication_type.id_for_label }}" class="block text-gray-700 font-medium mb-2">Communication Type</label>
+                        {{ form.communication_type }}
+                        {% if form.communication_type.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.communication_type.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="flex items-center h-5">
+                            {{ form.all_alumni }}
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="{{ form.all_alumni.id_for_label }}" class="font-medium text-gray-700">Send to All Alumni</label>
+                            <p class="text-gray-500">Check to send to all alumni</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <button type="submit" class="btn-msu-blue w-full">Send Communication</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Communication History -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold mb-4">Communication History</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full table-auto bg-white">
+                        <thead>
+                            <tr>
+                                <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                                <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sent By</th>
+                                <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sent Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            {% for comm in communications %}
+                            <tr class="hover:bg-gray-50 cursor-pointer" onclick="toggleDetails({{ comm.id }})">
+                                <td class="py-4 px-4 break-words">{{ comm.title }}</td>
+                                <td class="py-4 px-4 break-words">
+                                    {% if comm.communication_type == 'email' %}
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Email</span>
+                                    {% elif comm.communication_type == 'sms' %}
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">SMS</span>
+                                    {% else %}
+                                    <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Announcement</span>
+                                    {% endif %}
+                                </td>
+                                <td class="py-4 px-4 break-words">{{ comm.sender.get_full_name|default:comm.sender.username }}</td>
+                                <td class="py-4 px-4 break-words">{{ comm.sent_date|date:"F d, Y g:i A" }}</td>
+                            </tr>
+                            <tr id="details-{{ comm.id }}" class="hidden bg-gray-50">
+                                <td colspan="4" class="py-4 px-6">
+                                    <div class="mb-2"><strong>Message:</strong></div>
+                                    <div class="bg-white p-3 rounded border">{{ comm.message|linebreaks }}</div>
+                                    <div class="mt-2">
+                                        <strong>Recipients:</strong> {{ comm.recipients.count }} alumni
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="py-4 text-center text-gray-500">No communications have been sent yet</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+    function toggleDetails(id) {
+        const detailsRow = document.getElementById(`details-${id}`);
+        detailsRow.classList.toggle('hidden');
+    }
+</script>
+{% endblock %}
+
+{% endblock %}

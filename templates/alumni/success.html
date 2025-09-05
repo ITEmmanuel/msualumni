@@ -1,0 +1,53 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}Registration Successful{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto text-center">
+    <div class="bg-green-100 rounded-lg p-6 mb-8">
+        <svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+        </svg>
+        
+        <h1 class="text-3xl font-bold mb-4 text-green-700">Registration Successful!</h1>
+        <p class="text-xl mb-2">Thank you for registering with the MSU Alumni Network</p>
+        <p class="text-gray-600">You will receive newsletters, news about MSU, events, and reunion information.</p>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md p-8">
+        <h2 class="text-2xl font-bold mb-6 text-msu-blue">What's Next?</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-4 border border-gray-200 rounded-lg">
+                <svg class="w-12 h-12 text-msu-blue mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                </svg>
+                <h3 class="text-lg font-semibold mb-2">Stay Updated</h3>
+                <p>Watch your inbox for our newsletters with the latest news and updates from MSU.</p>
+            </div>
+            
+            <div class="p-4 border border-gray-200 rounded-lg">
+                <svg class="w-12 h-12 text-msu-blue mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-lg font-semibold mb-2">Join Our Events</h3>
+                <p>Participate in upcoming alumni events, reunions, and networking opportunities.</p>
+            </div>
+            
+            <div class="p-4 border border-gray-200 rounded-lg">
+                <svg class="w-12 h-12 text-msu-blue mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-lg font-semibold mb-2">Stay Connected</h3>
+                <p>Connect with fellow alumni and build your professional network through our platform.</p>
+            </div>
+        </div>
+        
+        <div class="mt-8">
+            <a href="{% url 'alumni:home' %}" class="btn-msu-blue">Return to Homepage</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

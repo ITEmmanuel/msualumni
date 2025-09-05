@@ -1,0 +1,52 @@
+{% extends 'admin_portal/base.html' %}
+{% load static %}
+
+{% block title %}Edit Newsletter - MSU IARO{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-msu-blue">Edit Newsletter</h1>
+        <a href="{% url 'admin_portal:newsletters' %}" class="text-msu-blue hover:underline">← Back to Newsletters</a>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="{{ form.title.id_for_label }}" class="block text-gray-700 font-medium mb-2">Title</label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ form.title.errors.0 }}</p>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="{{ form.content.id_for_label }}" class="block text-gray-700 font-medium mb-2">Content</label>
+                {{ form.content }}
+                {% if form.content.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ form.content.errors.0 }}</p>
+                {% endif %}
+                <p class="text-sm text-gray-500 mt-1">You can use line breaks for paragraphs.</p>
+            </div>
+            
+            <div>
+                <label for="{{ form.attachment.id_for_label }}" class="block text-gray-700 font-medium mb-2">Attachment</label>
+                {% if newsletter.attachment %}
+                <p class="mb-2">Current attachment: <a href="{{ newsletter.attachment.url }}" class="text-blue-600 hover:underline" target="_blank">View attachment</a></p>
+                {% endif %}
+                {{ form.attachment }}
+                {% if form.attachment.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ form.attachment.errors.0 }}</p>
+                {% endif %}
+                <p class="text-sm text-gray-500 mt-1">Upload a new file to replace the existing one, or leave empty to keep the current attachment.</p>
+            </div>
+            
+            <div class="pt-4">
+                <button type="submit" class="btn-msu-blue">Update Newsletter</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

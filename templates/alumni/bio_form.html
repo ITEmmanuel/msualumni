@@ -1,0 +1,155 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}Complete Your Alumni Profile{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6 text-msu-blue">Complete Your Alumni Profile</h1>
+    
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <p class="mb-6">Please provide your personal and professional information to complete your alumni profile:</p>
+        
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="{{ form.first_name.id_for_label }}" class="block text-gray-700 font-medium mb-2">First Name</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.first_name.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <label for="{{ form.last_name.id_for_label }}" class="block text-gray-700 font-medium mb-2">Last Name</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.last_name.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="{{ form.gender.id_for_label }}" class="block text-gray-700 font-medium mb-2">Gender</label>
+                    {{ form.gender }}
+                    {% if form.gender.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.gender.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <label for="{{ form.date_of_birth.id_for_label }}" class="block text-gray-700 font-medium mb-2">Date of Birth</label>
+                    {{ form.date_of_birth }}
+                    {% if form.date_of_birth.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.date_of_birth.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div>
+                <label for="{{ form.address.id_for_label }}" class="block text-gray-700 font-medium mb-2">Address</label>
+                {{ form.address }}
+                {% if form.address.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ form.address.errors.0 }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="{{ form.city.id_for_label }}" class="block text-gray-700 font-medium mb-2">City</label>
+                    {{ form.city }}
+                    {% if form.city.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.city.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <label for="{{ form.country.id_for_label }}" class="block text-gray-700 font-medium mb-2">Country</label>
+                    {{ form.country }}
+                    {% if form.country.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.country.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div>
+                <label for="{{ form.mobile_number.id_for_label }}" class="block text-gray-700 font-medium mb-2">Mobile Number</label>
+                {{ form.mobile_number }}
+                {% if form.mobile_number.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ form.mobile_number.errors.0 }}</p>
+                {% endif %}
+            </div>
+            
+            <h3 class="text-xl font-semibold mt-6 mb-4 text-msu-blue">Education & Professional Information</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="{{ form.graduation_year.id_for_label }}" class="block text-gray-700 font-medium mb-2">Graduation Year</label>
+                    {{ form.graduation_year }}
+                    {% if form.graduation_year.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.graduation_year.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <label for="{{ form.degree_level.id_for_label }}" class="block text-gray-700 font-medium mb-2">Degree Level</label>
+                    {{ form.degree_level }}
+                    {% if form.degree_level.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.degree_level.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div>
+                <label for="{{ form.current_employer.id_for_label }}" class="block text-gray-700 font-medium mb-2">Current Employer</label>
+                {{ form.current_employer }}
+                {% if form.current_employer.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ form.current_employer.errors.0 }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="{{ form.job_title.id_for_label }}" class="block text-gray-700 font-medium mb-2">Job Title</label>
+                    {{ form.job_title }}
+                    {% if form.job_title.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.job_title.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <label for="{{ form.industry.id_for_label }}" class="block text-gray-700 font-medium mb-2">Industry</label>
+                    {{ form.industry }}
+                    {% if form.industry.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.industry.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div>
+                <label for="{{ form.bio.id_for_label }}" class="block text-gray-700 font-medium mb-2">Brief Bio</label>
+                {{ form.bio }}
+                {% if form.bio.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ form.bio.errors.0 }}</p>
+                {% endif %}
+                <p class="text-sm text-gray-500 mt-1">Tell us about your achievements, interests, and journey since graduation</p>
+            </div>
+            
+            <div>
+                <label for="{{ form.profile_picture.id_for_label }}" class="block text-gray-700 font-medium mb-2">Profile Picture</label>
+                {{ form.profile_picture }}
+                {% if form.profile_picture.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ form.profile_picture.errors.0 }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="pt-4">
+                <button type="submit" class="btn-msu-blue">Complete Registration</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

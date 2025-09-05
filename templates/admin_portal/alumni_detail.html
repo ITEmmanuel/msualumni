@@ -1,0 +1,108 @@
+{% extends 'admin_portal/base.html' %}
+{% load static %}
+
+{% block title %}Alumni Details - MSU IARO{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-msu-blue">Alumni Details</h1>
+        <a href="{% url 'admin_portal:alumni_list' %}" class="text-msu-blue hover:underline">← Back to Alumni List</a>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow overflow-hidden mb-6">
+        <div class="p-6">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-2xl font-bold">{{ alumni.first_name|default:"" }} {{ alumni.last_name|default:"" }}</h2>
+                    <p class="text-gray-600 mb-2">{{ alumni.reg_number }}</p>
+                    
+                    <div class="mt-2">
+                        {% if alumni.is_verified %}
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Verified</span>
+                        {% else %}
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Pending Verification</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <form method="post" action="{% url 'admin_portal:verify_alumni' alumni.id %}">
+                    {% csrf_token %}
+                    {% if alumni.is_verified %}
+                    <button type="submit" class="bg-red-100 text-red-700 hover:bg-red-200 px-4 py-2 rounded-md transition duration-300">
+                        Unverify Alumni
+                    </button>
+                    {% else %}
+                    <button type="submit" class="bg-green-100 text-green-700 hover:bg-green-200 px-4 py-2 rounded-md transition duration-300">
+                        Verify Alumni
+                    </button>
+                    {% endif %}
+                </form>
+            </div>
+            
+            {% if alumni.profile_picture %}
+            <div class="mt-4">
+                <img src="{{ alumni.profile_picture.url }}" alt="Profile Picture" class="w-32 h-32 object-cover rounded-lg">
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="border-t border-gray-200">
+            <dl>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Registration Date</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ alumni.registration_date }}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">National ID</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ alumni.national_id }}</dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Email</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ alumni.email }}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Gender</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ alumni.get_gender_display|default:"-" }}</dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Date of Birth</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ alumni.date_of_birth|default:"-" }}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Contact Information</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        <p>Mobile: {{ alumni.mobile_number|default:"-" }}</p>
+                        <p>Address: {{ alumni.address|default:"-" }}</p>
+                        <p>{{ alumni.city|default:"-" }}, {{ alumni.country|default:"-" }}</p>
+                    </dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Programme Studied</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ alumni.programme_studied }}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Degree Level</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ alumni.degree_level|default:"-" }}</dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Graduation Year</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ alumni.graduation_year|default:"-" }}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Employment Information</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        <p>Employer: {{ alumni.current_employer|default:"-" }}</p>
+                        <p>Job Title: {{ alumni.job_title|default:"-" }}</p>
+                        <p>Industry: {{ alumni.industry|default:"-" }}</p>
+                    </dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Bio</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ alumni.bio|default:"-"|linebreaks }}</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>
+{% endblock %}

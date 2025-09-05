@@ -1,0 +1,69 @@
+{% extends 'admin_portal/base.html' %}
+{% load static %}
+
+{% block title %}Manage Events - MSU IARO{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-msu-blue">Manage Events</h1>
+        <a href="{% url 'admin_portal:dashboard' %}" class="text-msu-blue hover:underline">← Back to Dashboard</a>
+    </div>
+    
+    <div class="mb-6">
+        <a href="{% url 'admin_portal:create_event' %}" class="btn-msu-blue">
+            <span class="mr-2">+</span> Create Event
+        </a>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full table-auto bg-white">
+                <thead>
+                    <tr>
+                        <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                        <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+                        <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                        <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                        <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% for event in events %}
+                    <tr>
+                        <td class="py-4 px-4 break-words">{{ event.title }}</td>
+                        <td class="py-4 px-4 break-words">{{ event.date|date:"F d, Y g:i A" }}</td>
+                        <td class="py-4 px-4 break-words">{{ event.location }}</td>
+                        <td class="py-4 px-4 break-words">
+                            {% if event.is_virtual %}
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Virtual</span>
+                            {% else %}
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">In-Person</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-4 px-4 break-words">
+                            {% if event.date >= now %}
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Upcoming</span>
+                            {% else %}
+                            <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs">Past</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-4 px-4 break-words">
+                            <div class="flex space-x-2">
+                                <a href="{% url 'alumni:event_detail' event.id %}" class="text-blue-600 hover:text-blue-900">View</a>
+                                <a href="{% url 'admin_portal:edit_event' event.id %}" class="text-green-600 hover:text-green-900">Edit</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="py-4 text-center text-gray-500">No events available</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

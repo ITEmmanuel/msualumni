@@ -1,0 +1,41 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}{{ newsletter.title }} - MSU IARO{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-gray-100 to-gray-200 text-center py-10 mb-8">
+  <div class="max-w-5xl mx-auto px-4">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-2 text-msu-blue">{{ newsletter.title }}</h1>
+      <p class="text-gray-600">{{ newsletter.published_date|date:"F d, Y" }}</p>
+  </div>
+</section>
+
+<div class="max-w-5xl mx-auto px-4">
+    <div class="mb-6">
+        <a href="{% url 'alumni:newsletters' %}" class="inline-flex items-center gap-1 text-msu-blue hover:underline">← <span>Back to Newsletters</span></a>
+    </div>
+    
+    <div class="bg-white rounded-lg border-l-4 border-msu-blue shadow-sm p-6 lg:p-8">
+        
+        
+        
+        <div class="prose lg:prose-lg max-w-none">
+            {{ newsletter.content|linebreaks }}
+        </div>
+        
+        {% if newsletter.attachment %}
+        <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+            <h2 class="text-lg font-medium mb-2">Attachments</h2>
+            <a href="{{ newsletter.attachment.url }}" class="inline-flex items-center gap-2 px-4 py-2 bg-msu-blue text-white rounded-md hover:bg-blue-700" download>
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                Download Attachment
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

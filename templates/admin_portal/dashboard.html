@@ -1,0 +1,105 @@
+{% extends 'admin_portal/base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard - MSU IARO{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <h1 class="text-3xl font-bold mb-6 text-msu-blue">Alumni Office Dashboard</h1>
+    
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-sm text-gray-500 uppercase font-medium">Total Alumni</h2>
+            <p class="text-3xl font-bold">{{ alumni_count }}</p>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-sm text-gray-500 uppercase font-medium">Verified Alumni</h2>
+            <p class="text-3xl font-bold">{{ verified_alumni_count }}</p>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-sm text-gray-500 uppercase font-medium">Newsletters</h2>
+            <p class="text-3xl font-bold">{{ newsletter_count }}</p>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-sm text-gray-500 uppercase font-medium">Events</h2>
+            <p class="text-3xl font-bold">{{ event_count }}</p>
+        </div>
+    </div>
+    
+    <!-- Quick Links -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <a href="{% url 'admin_portal:alumni_list' %}" class="bg-blue-100 text-blue-700 rounded-lg p-6 hover:bg-blue-200 transition duration-300">
+            <h3 class="font-bold mb-2">Manage Alumni</h3>
+            <p class="text-sm">View and verify registered alumni</p>
+        </a>
+        
+        <a href="{% url 'admin_portal:newsletters' %}" class="bg-green-100 text-green-700 rounded-lg p-6 hover:bg-green-200 transition duration-300">
+            <h3 class="font-bold mb-2">Newsletters</h3>
+            <p class="text-sm">Create and manage newsletters</p>
+        </a>
+        
+        <a href="{% url 'admin_portal:events' %}" class="bg-yellow-100 text-yellow-700 rounded-lg p-6 hover:bg-yellow-200 transition duration-300">
+            <h3 class="font-bold mb-2">Events</h3>
+            <p class="text-sm">Create and manage alumni events</p>
+        </a>
+        
+        <a href="{% url 'admin_portal:communication' %}" class="bg-purple-100 text-purple-700 rounded-lg p-6 hover:bg-purple-200 transition duration-300">
+            <h3 class="font-bold mb-2">Communication</h3>
+            <p class="text-sm">Send announcements to alumni</p>
+        </a>
+    </div>
+    
+    <!-- Recent Alumni -->
+    <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold">Recent Alumni Registrations</h2>
+            <a href="{% url 'admin_portal:alumni_list' %}" class="text-msu-blue hover:underline">View all</a>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="py-3 px-4 border-b text-left">Name</th>
+                        <th class="py-3 px-4 border-b text-left">Reg Number</th>
+                        <th class="py-3 px-4 border-b text-left">Programme</th>
+                        <th class="py-3 px-4 border-b text-left">Registration Date</th>
+                        <th class="py-3 px-4 border-b text-left">Status</th>
+                        <th class="py-3 px-4 border-b text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alumni in recent_alumni %}
+                    <tr>
+                        <td class="py-3 px-4 border-b">
+                            {{ alumni.first_name }} {{ alumni.last_name|default:"-" }}
+                        </td>
+                        <td class="py-3 px-4 border-b">{{ alumni.reg_number }}</td>
+                        <td class="py-3 px-4 border-b">{{ alumni.programme_studied }}</td>
+                        <td class="py-3 px-4 border-b">{{ alumni.registration_date|date:"M d, Y" }}</td>
+                        <td class="py-3 px-4 border-b">
+                            {% if alumni.is_verified %}
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Verified</span>
+                            {% else %}
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Pending</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-3 px-4 border-b">
+                            <a href="{% url 'admin_portal:alumni_detail' alumni.id %}" class="text-msu-blue hover:underline">View</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="py-4 text-center text-gray-500">No recent alumni registrations</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

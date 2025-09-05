@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Portal • MSU IARO{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100">
+    <!-- Header → we keep the same logo bar for brand consistency -->
+    <header class="w-full bg-white shadow-sm mb-0">
+        <div style="border: 4px solid #1e88e5; border-bottom: none;">
+            <div class="container mx-auto">
+                <div class="flex flex-nowrap items-center justify-between p-2">
+                    <!-- Left Logo -->
+                    <div class="flex-1 flex justify-center px-1">
+                        <img src="{% static 'images/msulogo.png' %}" alt="MSU Logo" class="h-10 sm:h-12 md:h-14 w-auto object-contain">
+                    </div>
+                    <!-- Center Text -->
+                    <div class="flex-1 flex flex-col items-center justify-center px-1 text-center">
+                        <div class="text-[8px] xs:text-[10px] sm:text-xs md:text-sm font-semibold text-msu-blue uppercase tracking-tight whitespace-nowrap">MIDLANDS STATE UNIVERSITY</div>
+                        <div class="text-[10px] xs:text-xs sm:text-sm md:text-base lg:text-lg font-bold text-msu-blue uppercase tracking-tight whitespace-nowrap my-0.5">INTERNATIONAL & ALUMNI</div>
+                        <div class="text-[8px] xs:text-[10px] sm:text-xs md:text-sm font-medium text-msu-blue uppercase tracking-tight whitespace-nowrap">RELATIONS OFFICE</div>
+                    </div>
+                    <!-- Right Logo -->
+                    <div class="flex-1 flex justify-center px-1">
+                        <img src="{% static 'images/iaro_logo.png' %}" alt="IARO Logo" class="h-12 sm:h-14 md:h-16 w-auto max-w-[120px] sm:max-w-[140px] md:max-w-[160px] object-contain">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Layout Wrapper -->
+    <div class="flex flex-1">
+        {% if user.is_authenticated %}
+        <!-- Sidebar -->
+        <aside class="w-64 bg-msu-blue text-white flex-shrink-0 hidden md:block">
+            <div class="p-4 text-center font-bold text-lg border-b border-blue-300">Admin Portal</div>
+            <nav class="mt-4 space-y-1">
+                <a href="{% url 'admin_portal:dashboard' %}" class="block py-2.5 px-4 hover:bg-blue-600 transition">Dashboard</a>
+                <a href="{% url 'admin_portal:alumni_list' %}" class="block py-2.5 px-4 hover:bg-blue-600 transition">Alumni</a>
+                <a href="{% url 'admin_portal:newsletters' %}" class="block py-2.5 px-4 hover:bg-blue-600 transition">Newsletters</a>
+                <a href="{% url 'admin_portal:events' %}" class="block py-2.5 px-4 hover:bg-blue-600 transition">Events</a>
+                <a href="{% url 'admin_portal:communication' %}" class="block py-2.5 px-4 hover:bg-blue-600 transition">Communication</a>
+                <a href="{% url 'admin_portal:birthdays' %}" class="block py-2.5 px-4 hover:bg-blue-600 transition">Birthdays</a>
+                <a href="{% url 'admin_portal:birthday_templates' %}" class="block py-2.5 px-4 hover:bg-blue-600 transition">Birthday Templates</a>
+                <a href="{% url 'admin_portal:reports' %}" class="block py-2.5 px-4 hover:bg-blue-600 transition">Reports</a>
+                <a href="{% url 'admin_portal:logout' %}" class="block py-2.5 px-4 hover:bg-blue-600 transition">Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Mobile sidebar toggle button -->
+        <div class="md:hidden absolute top-4 left-4 z-20">
+            <button id="toggle-sidebar" class="text-msu-blue focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+
+        {% endif %}
+
+        <!-- Content Area -->
+        <main id="admin-content" class="flex-1 p-4 md:p-8">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    {% block extra_js %}{% endblock %}
+
+    <!-- Sidebar toggle script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.querySelector('aside');
+            const toggleBtn = document.getElementById('toggle-sidebar');
+            if (!sidebar || !toggleBtn) return;
+
+            toggleBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-full');
+                sidebar.classList.toggle('fixed');
+                sidebar.classList.toggle('top-0');
+                sidebar.classList.toggle('left-0');
+                sidebar.classList.toggle('h-full');
+                sidebar.classList.toggle('shadow-lg');
+                sidebar.classList.toggle('transition-transform');
+                sidebar.classList.toggle('duration-300');
+            });
+        });
+    </script>
+</body>
+</html>

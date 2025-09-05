@@ -1,0 +1,205 @@
+{% extends 'admin_portal/base.html' %}
+{% block title %}Edit {{ template.get_month_display }} Template • Admin Portal{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-msu-blue">Edit {{ template.get_month_display }} Birthday Template</h1>
+    <a href="{% url 'admin_portal:birthday_templates' %}" 
+       class="text-msu-blue hover:underline">← Back to Templates</a>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Form Section -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="p-6">
+            <form method="post" id="template-form">
+                {% csrf_token %}
+                
+                <div class="space-y-6">
+                    <div>
+                        <label for="{{ form.month.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Month
+                        </label>
+                        {{ form.month }}
+                        {% if form.month.errors %}
+                            <p class="mt-2 text-sm text-red-600">{{ form.month.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.title.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Template Title
+                        </label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <p class="mt-2 text-sm text-red-600">{{ form.title.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.message.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Birthday Message
+                        </label>
+                        {{ form.message }}
+                        <p class="mt-1 text-sm text-gray-500">{{ form.message.help_text }}</p>
+                        {% if form.message.errors %}
+                            <p class="mt-2 text-sm text-red-600">{{ form.message.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label for="{{ form.background_color.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                Background Color
+                            </label>
+                            {{ form.background_color }}
+                            {% if form.background_color.errors %}
+                                <p class="mt-2 text-sm text-red-600">{{ form.background_color.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label for="{{ form.text_color.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                Text Color
+                            </label>
+                            {{ form.text_color }}
+                            {% if form.text_color.errors %}
+                                <p class="mt-2 text-sm text-red-600">{{ form.text_color.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label for="{{ form.border_color.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                Border Color
+                            </label>
+                            {{ form.border_color }}
+                            {% if form.border_color.errors %}
+                                <p class="mt-2 text-sm text-red-600">{{ form.border_color.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="{{ form.emoji.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Emoji
+                        </label>
+                        {{ form.emoji }}
+                        {% if form.emoji.errors %}
+                            <p class="mt-2 text-sm text-red-600">{{ form.emoji.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="flex items-center">
+                        {{ form.is_active }}
+                        <label for="{{ form.is_active.id_for_label }}" class="ml-2 block text-sm text-gray-700">
+                            Template is active
+                        </label>
+                        {% if form.is_active.errors %}
+                            <p class="mt-2 text-sm text-red-600">{{ form.is_active.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mt-8 flex space-x-4">
+                    <button type="submit" 
+                            class="bg-msu-blue text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300">
+                        Update Template
+                    </button>
+                    <a href="{% url 'admin_portal:birthday_templates' %}" 
+                       class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition duration-300">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Preview Section -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Template Preview</h3>
+            
+            <div id="template-preview" class="p-4 rounded-md border-2">
+                <div class="flex items-start">
+                    <span id="preview-emoji" class="text-2xl mr-3">{{ template.emoji }}</span>
+                    <div>
+                        <h4 id="preview-title" class="font-medium mb-2">{{ template.title }}</h4>
+                        <p id="preview-message" class="text-sm">
+                            {{ template.get_formatted_message:"John Doe"|add:" "|add:template.get_month_display|add:" 15" }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="mt-4 text-sm text-gray-500">
+                This preview shows how your template will look when displayed for alumni birthdays.
+                The colors and styling will be applied to match your selections.
+            </p>
+            
+            <!-- Template Info -->
+            <div class="mt-6 bg-gray-50 rounded-lg p-4">
+                <h4 class="font-medium text-gray-800 mb-2">Template Information</h4>
+                <div class="text-sm text-gray-600 space-y-1">
+                    <p><strong>Created:</strong> {{ template.created_date|date:"M d, Y" }}</p>
+                    <p><strong>Last Updated:</strong> {{ template.updated_date|date:"M d, Y" }}</p>
+                    <p><strong>Created by:</strong> {{ template.created_by.get_full_name|default:template.created_by.username }}</p>
+                    <p><strong>Status:</strong> 
+                        {% if template.is_active %}
+                            <span class="text-green-600">Active</span>
+                        {% else %}
+                            <span class="text-red-600">Inactive</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('template-form');
+    const preview = document.getElementById('template-preview');
+    const previewTitle = document.getElementById('preview-title');
+    const previewMessage = document.getElementById('preview-message');
+    const previewEmoji = document.getElementById('preview-emoji');
+    
+    // Get form elements
+    const titleInput = document.getElementById('{{ form.title.id_for_label }}');
+    const messageInput = document.getElementById('{{ form.message.id_for_label }}');
+    const emojiInput = document.getElementById('{{ form.emoji.id_for_label }}');
+    const backgroundColorInput = document.getElementById('{{ form.background_color.id_for_label }}');
+    const textColorInput = document.getElementById('{{ form.text_color.id_for_label }}');
+    const borderColorInput = document.getElementById('{{ form.border_color.id_for_label }}');
+    
+    function updatePreview() {
+        // Update title
+        previewTitle.textContent = titleInput.value || 'Template Title';
+        
+        // Update message with sample data
+        let message = messageInput.value || 'Happy Birthday {name}! Wishing you a wonderful {birthday_date} and an amazing year ahead!';
+        message = message.replace('{name}', 'John Doe').replace('{birthday_date}', '{{ template.get_month_display }} 15');
+        previewMessage.textContent = message;
+        
+        // Update emoji
+        previewEmoji.textContent = emojiInput.value || '🎉';
+        
+        // Update colors
+        preview.style.backgroundColor = backgroundColorInput.value;
+        preview.style.color = textColorInput.value;
+        preview.style.borderColor = borderColorInput.value;
+    }
+    
+    // Add event listeners
+    titleInput.addEventListener('input', updatePreview);
+    messageInput.addEventListener('input', updatePreview);
+    emojiInput.addEventListener('input', updatePreview);
+    backgroundColorInput.addEventListener('input', updatePreview);
+    textColorInput.addEventListener('input', updatePreview);
+    borderColorInput.addEventListener('input', updatePreview);
+    
+    // Initialize preview with current values
+    updatePreview();
+});
+</script>
+{% endblock %}

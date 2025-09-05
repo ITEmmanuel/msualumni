@@ -1,0 +1,53 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}Stay Connected{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 mb-12">
+  <div class="max-w-5xl mx-auto px-4 py-14">
+    <h1 class="text-4xl font-extrabold mb-2 text-msu-blue">Stay Connected</h1>
+    <p class="text-lg max-w-2xl text-msu-blue mb-6">Join our social and professional channels to keep in touch with MSU alumni worldwide.</p>
+    <div class="flex flex-wrap gap-3">
+      <a href="{% url 'alumni:quick_update' %}" class="inline-block px-8 py-3 text-lg font-semibold rounded-md shadow bg-yellow-400 text-gray-900 hover:bg-yellow-300 transform hover:-translate-y-0.5 transition animate-bounce focus:outline-none focus:ring-2 focus:ring-offset-2">
+        Update My Details
+      </a>
+      <a href="{% url 'alumni:donate' %}" class="inline-block px-8 py-3 text-lg font-semibold rounded-md shadow bg-green-600 text-white hover:bg-green-700 transform hover:-translate-y-0.5 transition animate-pulse focus:outline-none focus:ring-2 focus:ring-offset-2">
+        Donate Now
+      </a>
+    </div>
+  </div>
+</section>
+<div class="max-w-3xl mx-auto py-12 px-4 text-center">
+
+
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- WhatsApp -->
+    <a href="https://chat.whatsapp.com/your-group-link" target="_blank" class="block bg-white shadow rounded-lg p-6 hover:shadow-md transition border-l-4 border-green-500">
+      <img src="{% static 'icons/whatsapp.svg' %}" alt="WhatsApp" class="h-10 mx-auto mb-4">
+      <h2 class="text-xl font-semibold mb-2">WhatsApp Groups</h2>
+      <p class="text-gray-600">Join program-specific WhatsApp groups to share opportunities and events.</p>
+    </a>
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/groups/your-group-id" target="_blank" class="block bg-white shadow rounded-lg p-6 hover:shadow-md transition border-l-4 border-blue-600">
+      <img src="{% static 'icons/linkedin.svg' %}" alt="LinkedIn" class="h-10 mx-auto mb-4">
+      <h2 class="text-xl font-semibold mb-2">LinkedIn Community</h2>
+      <p class="text-gray-600">Connect professionally with alumni across industries worldwide.</p>
+    </a>
+    <!-- X / Twitter -->
+    <a href="https://twitter.com/MSUAlumni" target="_blank" class="block bg-white shadow rounded-lg p-6 hover:shadow-md transition border-l-4 border-black">
+      <img src="{% static 'icons/twitterx.svg' %}" alt="X" class="h-10 mx-auto mb-4">
+      <h2 class="text-xl font-semibold mb-2">Follow Us on X</h2>
+      <p class="text-gray-600">Get the latest news, events and stories in real time.</p>
+    </a>
+    <!-- Email Newsletter -->
+    <a href="{% url 'alumni:newsletters' %}" class="block bg-white shadow rounded-lg p-6 hover:shadow-md transition border-l-4 border-msu-blue">
+      <img src="{% static 'icons/newsletter.svg' %}" alt="Newsletter" class="h-10 mx-auto mb-4">
+      <h2 class="text-xl font-semibold mb-2">Email Newsletter</h2>
+      <p class="text-gray-600">Subscribe to stay updated on alumni events and opportunities.</p>
+    </a>
+  </div>
+</div>
+{% endblock %}

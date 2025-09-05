@@ -1,0 +1,124 @@
+{% extends 'admin_portal/base.html' %}
+{% load birthday_tags %}
+{% block title %}Birthdays • Admin Portal{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-msu-blue">Alumni Birthdays</h1>
+    <a href="{% url 'admin_portal:birthday_templates' %}" 
+       class="bg-msu-blue text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300">
+        Manage Templates
+    </a>
+</div>
+
+<!-- Today's Birthdays -->
+<div class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Celebrating Today</h2>
+    {% if today_birthdays %}
+        <div class="space-y-3">
+            {% for alum in today_birthdays %}
+                {% if alum.birthday_template %}
+                    <!-- Custom template display -->
+                    <div class="p-4 rounded-lg shadow border-l-4" 
+                         style="background-color: {{ alum.birthday_template.background_color }}; 
+                                color: {{ alum.birthday_template.text_color }}; 
+                                border-left-color: {{ alum.birthday_template.border_color }};">
+                        <div class="flex items-start">
+                            <span class="text-2xl mr-3">{{ alum.birthday_template.emoji }}</span>
+                            <div class="flex-1">
+                                <h3 class="font-medium mb-1">{{ alum.birthday_template.title }}</h3>
+                                <p class="text-sm opacity-90">
+                                    {{ alum.birthday_template|format_birthday_message:alum }}
+                                </p>
+                                <p class="text-xs opacity-75 mt-1">{{ alum.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- Default display -->
+                    <div class="bg-green-50 border-l-4 border-green-600 p-4 rounded shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-medium">{{ alum.first_name }} {{ alum.last_name }}</span>
+                                <span class="text-gray-600">({{ alum.email }})</span>
+                            </div>
+                            <span class="text-xl">🎉</span>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+            <p class="text-gray-600">No birthdays today.</p>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Upcoming Birthdays -->
+<div>
+    <h2 class="text-xl font-semibold mb-4">Upcoming (next 30 days)</h2>
+    {% if upcoming_birthdays %}
+        <div class="space-y-3">
+            {% for alum in upcoming_birthdays %}
+                {% if alum.birthday_template %}
+                    <!-- Custom template display -->
+                    <div class="p-4 rounded-lg shadow border-l-4" 
+                         style="background-color: {{ alum.birthday_template.background_color }}; 
+                                color: {{ alum.birthday_template.text_color }}; 
+                                border-left-color: {{ alum.birthday_template.border_color }};">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start">
+                                <span class="text-xl mr-3">{{ alum.birthday_template.emoji }}</span>
+                                <div>
+                                    <h4 class="font-medium text-sm">{{ alum.birthday_template.title }}</h4>
+                                    <p class="text-sm opacity-90">
+                                        {{ alum.first_name }} {{ alum.last_name }}
+                                    </p>
+                                    <p class="text-xs opacity-75">{{ alum.email }}</p>
+                                </div>
+                            </div>
+                            <span class="text-sm font-medium">{{ alum.next_birthday|date:"M d" }}</span>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- Default display -->
+                    <div class="bg-blue-50 border-l-4 border-msu-blue p-4 rounded shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-medium">{{ alum.first_name }} {{ alum.last_name }}</span>
+                                <span class="text-gray-600">({{ alum.email }})</span>
+                            </div>
+                            <span class="text-sm font-medium">{{ alum.next_birthday|date:"M d" }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+            <p class="text-gray-600">No upcoming birthdays in the next 30 days.</p>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Template Management Notice -->
+{% if not birthday_templates %}
+<div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <div class="flex">
+        <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <div class="ml-3">
+            <h3 class="text-sm font-medium text-blue-800">No birthday templates configured</h3>
+            <p class="mt-1 text-sm text-blue-700">
+                Create birthday templates to customize how birthday messages appear for different months.
+                <a href="{% url 'admin_portal:birthday_templates' %}" class="font-medium underline">Manage templates here</a>.
+            </p>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

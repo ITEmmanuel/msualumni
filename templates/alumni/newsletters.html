@@ -1,0 +1,66 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}Newsletters – MSU IARO{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 mb-12">
+  <div class="max-w-5xl mx-auto px-4 py-14">
+    <h1 class="text-4xl font-extrabold mb-2 text-msu-blue">Newsletters</h1>
+    <p class="text-lg max-w-2xl text-msu-blue mb-6">Stay informed with the latest stories and updates from the International &amp; Alumni Relations Office.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="{% url 'alumni:quick_update' %}" class="inline-block px-8 py-3 text-lg font-semibold rounded-md shadow bg-yellow-400 text-gray-900 hover:bg-yellow-300 transform hover:-translate-y-0.5 transition animate-bounce focus:outline-none focus:ring-2 focus:ring-offset-2">
+          Update My Details
+        </a>
+        <a href="{% url 'alumni:donate' %}" class="inline-block px-8 py-3 text-lg font-semibold rounded-md shadow bg-green-600 text-white hover:bg-green-700 transform hover:-translate-y-0.5 transition animate-pulse focus:outline-none focus:ring-2 focus:ring-offset-2">
+          Donate Now
+        </a>
+      </div>
+  </div>
+</section>
+
+<div class="container mx-auto px-4 -mt-8">
+    <h1 class="text-3xl font-bold mb-4 text-msu-blue">Newsletters</h1>
+
+    <!-- Year filter navigation -->
+    <div class="flex flex-wrap gap-2 mb-8 text-sm">
+        <a href="{% url 'alumni:newsletters' %}"
+           class="px-3 py-1 rounded-full border {% if not selected_year %}bg-msu-blue text-white{% else %}bg-white text-msu-blue{% endif %}">
+            All
+        </a>
+        {% for y in years %}
+        <a href="?year={{ y }}"
+           class="px-3 py-1 rounded-full border {% if y == selected_year %}bg-msu-blue text-white{% else %}bg-white text-msu-blue{% endif %}">
+            {{ y }}
+        </a>
+        {% endfor %}
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for n in newsletters %}
+        <div class="bg-gray-50 rounded-lg border-l-4 border-msu-blue shadow overflow-hidden transition transform hover:-translate-y-0.5 flex">
+            <div class="w-24 h-24 flex-shrink-0 overflow-hidden">
+                {% if n.attachment %}
+                <img src="{{ n.attachment.url }}" alt="{{ n.title }}" class="object-cover w-full h-full">
+                {% else %}
+                <img src="{% static 'images/newsletter_placeholder.svg' %}" class="object-cover w-full h-full" alt="Newsletter placeholder">
+                {% endif %}
+            </div>
+            <div class="p-3 flex-1">
+                <h2 class="font-semibold text-base text-msu-blue mb-1">{{ n.title }}</h2>
+                <p class="text-xs text-msu-blue mb-2">{{ n.published_date|date:'F d, Y' }}</p>
+                <p class="text-sm text-gray-700 mb-4">{{ n.content|truncatewords:25 }}</p>
+                {% if n.attachment %}
+                <a href="{{ n.attachment.url }}" target="_blank" class="inline-flex items-center gap-1 text-sm font-medium text-msu-blue hover:underline">Read PDF &rarr;</a>
+                {% else %}
+                <a href="{% url 'alumni:newsletter_detail' n.id %}" class="inline-flex items-center gap-1 text-sm font-medium text-msu-blue hover:underline">Read more &rarr;</a>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <p class="col-span-full text-gray-600 text-center">No newsletters to display.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

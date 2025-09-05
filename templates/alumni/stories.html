@@ -1,0 +1,25 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}Alumni Stories{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-4">
+  <h1 class="text-3xl font-bold mb-6 text-center text-msu-blue">Inspiring Alumni Stories</h1>
+  <p class="text-gray-700 mb-10 text-center">Read how Midlands State University graduates are making an impact around the world.</p>
+  <div class="space-y-8">
+    <!-- Placeholder stories -->
+    <div class="bg-white shadow rounded-lg p-6 border-l-4 border-msu-blue">
+      <h2 class="text-xl font-semibold text-msu-blue-dark mb-2">Jane Doe – Class of 2015</h2>
+      <p class="text-gray-700">After graduating with a BSc in Computer Science, Jane founded a successful fintech startup that is transforming mobile payments in Zimbabwe.</p>
+    </div>
+
+    <div class="bg-white shadow rounded-lg p-6 border-l-4 border-msu-blue">
+      <h2 class="text-xl font-semibold text-msu-blue-dark mb-2">Tawanda Moyo – Class of 2010</h2>
+      <p class="text-gray-700">Tawanda now leads a renewable energy project bringing solar power to rural communities across Southern Africa.</p>
+    </div>
+
+    <!-- More stories can be added dynamically later -->
+  </div>
+</div>
+{% endblock %}

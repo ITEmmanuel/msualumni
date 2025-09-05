@@ -1,0 +1,69 @@
+{% extends 'admin_portal/base.html' %}
+{% load static %}
+
+{% block title %}Alumni Reports - MSU IARO{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-msu-blue">Alumni Reports</h1>
+        <a href="{% url 'admin_portal:dashboard' %}" class="text-msu-blue hover:underline">← Back to Dashboard</a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Alumni by Country -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-bold mb-4">Alumni by Country</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full table-auto bg-white">
+                    <thead>
+                        <tr>
+                            <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Country</th>
+                            <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        {% for row in country_counts %}
+                        <tr>
+                            <td class="py-4 px-4 break-words">{{ row.country|default:'Unspecified' }}</td>
+                            <td class="py-4 px-4 break-words">{{ row.total }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2" class="py-4 text-center text-gray-500">No data available</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Alumni by Areas of Interest -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-bold mb-4">Alumni by Areas of Interest</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full table-auto bg-white">
+                    <thead>
+                        <tr>
+                            <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Interest Area</th>
+                            <th class="py-3 px-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        {% for label, count in interest_counts.items %}
+                        <tr>
+                            <td class="py-4 px-4 break-words">{{ label }}</td>
+                            <td class="py-4 px-4 break-words">{{ count }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2" class="py-4 text-center text-gray-500">No data available</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,332 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MSU International & Alumni Relations Office{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="w-full bg-white shadow-sm mb-0">
+        <div style="border: 4px solid #1e88e5; border-bottom: none;">
+            <div class="container mx-auto">
+                <div class="flex flex-nowrap items-center justify-between p-2">
+                <!-- Left Logo -->
+                <div class="flex-1 flex justify-center px-1">
+                    <img src="{% static 'images/msulogo.png' %}" alt="MSU Logo" class="h-10 sm:h-12 md:h-14 w-auto object-contain">
+                </div>
+                <!-- Center Text -->
+                <div class="flex-1 flex flex-col items-center justify-center px-1 text-center">
+                    <div class="text-[8px] xs:text-[10px] sm:text-xs md:text-sm font-semibold text-msu-blue uppercase tracking-tight whitespace-nowrap">MIDLANDS STATE UNIVERSITY</div>
+                    <div class="text-[10px] xs:text-xs sm:text-sm md:text-base lg:text-lg font-bold text-msu-blue uppercase tracking-tight whitespace-nowrap my-0.5">INTERNATIONAL & ALUMNI</div>
+                    <div class="text-[8px] xs:text-[10px] sm:text-xs md:text-sm font-medium text-msu-blue uppercase tracking-tight whitespace-nowrap">RELATIONS OFFICE</div>
+                </div>
+                <!-- Right Logo -->
+                <div class="flex-1 flex justify-center px-1">
+                    <img src="{% static 'images/iaro_logo.png' %}" alt="IARO Logo" class="h-12 sm:h-14 md:h-16 w-auto max-w-[120px] sm:max-w-[140px] md:max-w-[160px] object-contain">
+                </div>
+            </div>
+        </div>
+        <nav class="bg-msu-blue shadow-md">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <!-- Mobile menu button -->
+                    <div class="flex justify-between items-center py-3 md:hidden">
+                        <span class="text-white font-semibold">Menu</span>
+                        <button id="mobile-menu-button" class="text-white focus:outline-none">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Navigation Links -->
+                    <div id="nav-links" class="hidden md:flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 py-3 md:py-0">
+                        <a href="{% url 'alumni:home' %}" class="nav-link relative text-white font-medium py-2 px-3">
+                            Home
+                            <span class="nav-underline"></span>
+                        </a>
+                        <a href="{% url 'alumni:newsletters' %}" class="nav-link relative text-white font-medium py-2 px-3">
+                            Newsletters
+                            <span class="nav-underline"></span>
+                        </a>
+                        <a href="{% url 'alumni:events' %}" class="nav-link relative text-white font-medium py-2 px-3">
+                            Events
+                            <span class="nav-underline"></span>
+                        </a>
+                        <a href="{% url 'alumni:stories' %}" class="nav-link relative text-white font-medium py-2 px-3">
+                            Stories
+                            <span class="nav-underline"></span>
+                        </a>
+                        <a href="{% url 'alumni:connect' %}" class="nav-link relative text-white font-medium py-2 px-3">
+                            Networks
+                            <span class="nav-underline"></span>
+                        </a>
+                        <a href="{% url 'alumni:donate' %}" class="nav-link relative text-white font-medium py-2 px-3">
+                            Donate
+                            <span class="nav-underline"></span>
+                        </a>
+                        <!-- Dynamic CTA with Multiple Phrases -->
+                        <div class="ml-4">
+                            <a href="{% url 'alumni:register' %}" class="cta-link relative inline-flex items-center py-2 px-4 font-medium text-yellow-400 hover:text-yellow-300 transition-colors duration-300">
+                                <span id="cta-text" class="typing-text relative pr-6"></span>
+                                <span class="arrow ml-1 opacity-0 transition-opacity duration-300">→</span>
+                                <span class="underline absolute bottom-1 left-0 w-full h-0.5 bg-yellow-400 transform scale-x-0 origin-left"></span>
+                            </a>
+                            <style>
+                                .typing-text {
+                                    min-width: 220px;
+                                    display: inline-block;
+                                    border-right: 2px solid #FFCB05;
+                                    animation: blink 0.7s step-end infinite;
+                                }
+                                .underline {
+                                    transition: transform 0.4s ease-out;  // Slower underline animation (was 0.3s)
+                                }
+                                @keyframes blink {
+                                    from, to { border-color: transparent; }
+                                    50% { border-color: #FFCB05; }
+                                }
+                            </style>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const phrases = [
+                                        'Join MSU Alumni Network',
+                                        'Connect with Fellow Alumni',
+                                        'Stay Updated with MSU',
+                                        'Be Part of Our Community'
+                                    ];
+                                    const ctaText = document.getElementById('cta-text');
+                                    const arrow = document.querySelector('.arrow');
+                                    const underline = document.querySelector('.underline');
+                                    let phraseIndex = 0;
+                                    let isDeleting = false;
+                                    let typingSpeed = 120;  // Slower typing speed (was 100)
+                                    let pauseTime = 3000;   // Longer pause between phrases (was 2000)
+                                    
+                                    function typeWriter() {
+                                        const currentPhrase = phrases[phraseIndex];
+                                        
+                                        if (isDeleting) {
+                                            // Delete text
+                                            ctaText.textContent = currentPhrase.substring(0, ctaText.textContent.length - 1);
+                                            typingSpeed = 80;  // Slower backspace speed (was 50)
+                                        } else {
+                                            // Type text
+                                            ctaText.textContent = currentPhrase.substring(0, ctaText.textContent.length + 1);
+                                            typingSpeed = 120;  // Matches the initial typing speed
+                                        }
+                                        
+                                        // Animate underline while typing
+                                        if (!isDeleting) {
+                                            const progress = ctaText.textContent.length / currentPhrase.length;
+                                            underline.style.transform = `scaleX(${progress})`;
+                                        } else {
+                                            const progress = ctaText.textContent.length / currentPhrase.length;
+                                            underline.style.transform = `scaleX(${progress})`;
+                                        }
+                                        
+                                        // Check if current phrase is complete
+                                        if (!isDeleting && ctaText.textContent === currentPhrase) {
+                                            // Pause at end of phrase
+                                            typingSpeed = pauseTime;
+                                            isDeleting = true;
+                                            arrow.style.opacity = '1';
+                                            underline.style.transformOrigin = 'right';
+                                        } else if (isDeleting && ctaText.textContent === '') {
+                                            // Move to next phrase
+                                            isDeleting = false;
+                                            phraseIndex = (phraseIndex + 1) % phrases.length;
+                                            arrow.style.opacity = '0';
+                                            underline.style.transformOrigin = 'left';
+                                        }
+                                        
+                                        setTimeout(typeWriter, typingSpeed);
+                                    }
+                                    
+                                    // Start the typing effect
+                                    setTimeout(typeWriter, 500);
+                                    
+                                    // Restart animation on hover
+                                    ctaText.parentElement.addEventListener('mouseenter', () => {
+                                        ctaText.textContent = '';
+                                        phraseIndex = 0;
+                                        isDeleting = false;
+                                        arrow.style.opacity = '0';
+                                        underline.style.transform = 'scaleX(0)';
+                                        typeWriter();
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <style>
+            /* Force gold color with !important */
+            .text-msu-gold {
+                color: #FFCB05 !important;
+            }
+            .hover\:text-msu-gold-light:hover {
+                color: #FFD700 !important;
+            }
+            .bg-msu-gold {
+                background-color: #FFCB05 !important;
+            }
+            
+            /* Ensure gold color for links */
+            a.text-msu-gold {
+                color: #FFCB05 !important;
+            }
+            a.hover\:text-msu-gold-light:hover {
+                color: #FFD700 !important;
+            }
+            
+            .nav-link {
+                transition: all 0.3s ease;
+                position: relative;
+                display: inline-block;
+            }
+            .nav-link:hover {
+                color: #e2e8f0 !important; /* Slightly lighter white on hover */
+            }
+            .nav-link:hover .nav-underline {
+                width: 100% !important;
+                opacity: 1 !important;
+            }
+            .nav-underline {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background-color: white !important;
+                transition: width 0.3s ease !important;
+                opacity: 0;
+            }
+            .dynamic-cta {
+                position: relative;
+                transition: all 0.3s ease !important;
+            }
+            .dynamic-cta:hover {
+                transform: translateX(5px) !important;
+            }
+            @media (max-width: 767px) {
+                #nav-links {
+                    display: none;
+                }
+                #nav-links.active {
+                    display: flex;
+                }
+            }
+        </style>
+        
+        <script>
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                const navLinks = document.getElementById('nav-links');
+                navLinks.classList.toggle('active');
+            });
+
+            // Dynamic CTA text rotation
+            const ctaPhrases = [
+                'Join MSU Alumni Network',
+                'Connect with fellow alumni',
+                'Unlock exclusive benefits',
+                'Stay updated with MSU',
+                'Grow your professional network',
+                'Be part of our community'
+            ];
+            
+            function rotateCTAText() {
+                const ctaText = document.getElementById('cta-text');
+                let currentIndex = 0;
+                
+                // Initial delay before starting rotation
+                setTimeout(function rotate() {
+                    currentIndex = (currentIndex + 1) % ctaPhrases.length;
+                    ctaText.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        ctaText.textContent = ctaPhrases[currentIndex];
+                        ctaText.style.opacity = '1';
+                        
+                        // Schedule next rotation (faster for first rotation, then slower)
+                        const delay = currentIndex === 0 ? 2000 : 3000;
+                        setTimeout(rotate, delay);
+                    }, 300);
+                }, 2000);
+            }
+            
+            // Start rotation when document is loaded
+            document.addEventListener('DOMContentLoaded', rotateCTAText);
+        </script>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block hero_content %}{% endblock %}
+        
+        <div class="container mx-auto px-4 py-6">
+            {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                <div class="p-4 {% if message.tags == 'success' %}bg-green-100 text-green-800{% elif message.tags == 'error' %}bg-red-100 text-red-800{% else %}bg-blue-100 text-blue-800{% endif %} rounded-md">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-container py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/3 mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <p>Midlands State University</p>
+                    <p>International & Alumni Relations Office</p>
+                    <p>Email: iaro@msu.ac.zw</p>
+                    <p>Phone: +263 (0)54 2260359</p>
+                </div>
+                <div class="w-full md:w-1/3 mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul>
+                        <li><a href="https://www.msu.ac.zw/" class="text-white hover:text-gray-200">MSU Website</a></li>
+                        <li><a href="{% url 'alumni:register' %}" class="text-white hover:text-gray-200">Alumni Registration</a></li>
+                        <li><a href="{% url 'alumni:events' %}" class="text-white hover:text-gray-200">Events</a></li>
+                        <li><a href="{% url 'alumni:newsletters' %}" class="text-white hover:text-gray-200">Newsletters</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-gray-200">Facebook</a>
+                        <a href="#" class="text-white hover:text-gray-200">Twitter</a>
+                        <a href="#" class="text-white hover:text-gray-200">LinkedIn</a>
+                        <a href="#" class="text-white hover:text-gray-200">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <p>© {% now "Y" %} Midlands State University. All Rights Reserved.</p>
+                <p class="mt-2">TAKING MSU TO THE WORLD AND BRINGING THE WORLD TO MSU</p>
+            </div>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+    <!-- Floating Years Badge -->
+    <img src="{% static 'images/years.png' %}" alt="MSU Years" class="fixed bottom-6 right-6 w-28 sm:w-32 md:w-40 animate-bounce pointer-events-none select-none" style="z-index: 50;" />
+</body>
+</html>
