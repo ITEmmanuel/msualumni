@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
 from .models import Alumni, Donation
+import re
 
 class AlumniRegistrationForm(forms.ModelForm):
     data_protection_consent = forms.BooleanField(
@@ -18,13 +19,13 @@ class AlumniRegistrationForm(forms.ModelForm):
         model = Alumni
         fields = [
             # Personal Information
-            'first_name', 'last_name', 'gender', 'date_of_birth', 'national_id',
+            'first_name', 'last_name', 'gender', 'maiden_name', 'date_of_birth', 'national_id',
             # Contact Information
             'email', 'mobile_number', 'city', 'country',
             # Academic Information
             'reg_number', 'programme_studied', 'graduation_year', 'degree_level',
             # Employment Information
-            'employment_status', 'current_employer', 'job_title', 'industry',
+            'employment_status', 'current_employer', 'job_title', 'industry', 'employment_other_details',
             # Areas of Interest
             'interest_networking', 'interest_academic', 'interest_career',
             'interest_giving_back', 'interest_stay_informed',
@@ -95,6 +96,10 @@ class AlumniRegistrationForm(forms.ModelForm):
     
     def clean_email(self):
         email = self.cleaned_data.get('email')
+        import re
+        email_regex = r'^[^@]+@[^@]+\.[^@]+$'
+        if not re.match(email_regex, email):
+            raise forms.ValidationError('Please enter a valid email address.')
         if Alumni.objects.filter(email=email).exists():
             raise forms.ValidationError('This email is already registered.')
         return email
@@ -113,6 +118,18 @@ class AlumniRegistrationForm(forms.ModelForm):
             if age < 18:
                 raise ValidationError('You must be at least 18 years old to register.')
         return dob
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get('first_name')
+        if not re.match(r'^[a-zA-Z\s]+$', first_name):
+            raise forms.ValidationError('First name must contain only letters and spaces.')
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data.get('last_name')
+        if not re.match(r'^[a-zA-Z\s]+$', last_name):
+            raise forms.ValidationError('Last name must contain only letters and spaces.')
+        return last_name
 
 
 class AlumniEmploymentUpdateForm(forms.ModelForm):

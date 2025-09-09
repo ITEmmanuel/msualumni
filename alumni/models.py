@@ -73,8 +73,9 @@ class Alumni(models.Model):
     # Personal Information
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other'), ('P', 'Prefer not to say')])
+    gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female')])
     date_of_birth = models.DateField(null=True, blank=True)
+    maiden_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Maiden Name')
     national_id = models.CharField(max_length=50, help_text="National ID/Passport Number")
     
     # Contact Information
@@ -124,13 +125,15 @@ class Alumni(models.Model):
     # Employment Information
     EMPLOYMENT_STATUS_CHOICES = [
         ('formally_employed', 'Formally Employed'),
-        ('self_employed', 'Self-Employed'),
+        ('self_employed', 'Self Employed'),
+        ('unemployed', 'Unemployed'),
         ('other', 'Other')
     ]
     employment_status = models.CharField(max_length=50, choices=EMPLOYMENT_STATUS_CHOICES, blank=True)
     current_employer = models.CharField(max_length=200, blank=True, verbose_name='Name of Organisation')
     job_title = models.CharField(max_length=200, blank=True, verbose_name='Designation')
     industry = models.CharField(max_length=200, blank=True)
+    employment_other_details = models.TextField(blank=True, verbose_name='Please specify')
     
     # Areas of Interest
     interest_networking = models.BooleanField(default=False, 

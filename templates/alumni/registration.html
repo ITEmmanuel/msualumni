@@ -161,16 +161,11 @@
                                     <div>
                                         <label for="{{ form.first_name.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">Surname</label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                                </svg>
-                                            </div>
                                             <input type="text" 
                                                    name="{{ form.first_name.name }}" 
                                                    id="{{ form.first_name.id_for_label }}" 
                                                    value="{{ form.first_name.value|default:'' }}" 
-                                                   class="pl-10 form-input {% if form.first_name.errors %}border-red-500{% endif %}"
+                                                   class="form-input {% if form.first_name.errors %}border-red-500{% endif %}"
                                                    required>
                                         </div>
                                         {% if form.first_name.errors %}
@@ -182,16 +177,11 @@
                                     <div>
                                         <label for="{{ form.last_name.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">First Names</label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                                </svg>
-                                            </div>
                                             <input type="text" 
                                                    name="{{ form.last_name.name }}" 
                                                    id="{{ form.last_name.id_for_label }}" 
                                                    value="{{ form.last_name.value|default:'' }}" 
-                                                   class="pl-10 form-input {% if form.last_name.errors %}border-red-500{% endif %}"
+                                                   class="form-input {% if form.last_name.errors %}border-red-500{% endif %}"
                                                    required>
                                         </div>
                                         {% if form.last_name.errors %}
@@ -201,7 +191,7 @@
                                     
                                     <!-- Gender -->
                                     <div>
-                                        <label for="{{ form.gender.id_for_label }}" class="block text-gray-700 font-medium mb-2">Gender</label>
+                                        <label for="{{ form.gender.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">Gender</label>
                                         <div class="relative">
                                             <select name="{{ form.gender.name }}" 
                                                     id="{{ form.gender.id_for_label }}" 
@@ -211,31 +201,37 @@
                                                 <option value="{{ value }}" {% if form.gender.value == value %}selected{% endif %}>{{ label }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                                </svg>
-                                            </div>
                                         </div>
                                         {% if form.gender.errors %}
                                         <p class="error-message">{{ form.gender.errors.0 }}</p>
                                         {% endif %}
                                     </div>
                                     
+                                    <!-- Maiden Name -->
+                                    <div id="maiden-name-container" class="hidden">
+                                        <label for="{{ form.maiden_name.id_for_label }}" class="block text-gray-700 font-medium mb-2">Maiden Name</label>
+                                        <div class="relative">
+                                            <input type="text" 
+                                                   name="{{ form.maiden_name.name }}" 
+                                                   id="{{ form.maiden_name.id_for_label }}" 
+                                                   value="{{ form.maiden_name.value|default:'' }}" 
+                                                   class="form-input {% if form.maiden_name.errors %}border-red-500{% endif %}"
+                                                   placeholder="Enter your maiden name">
+                                        </div>
+                                        {% if form.maiden_name.errors %}
+                                        <p class="error-message">{{ form.maiden_name.errors.0 }}</p>
+                                        {% endif %}
+                                    </div>
+                                    
                                     <!-- Date of Birth -->
                                     <div>
-                                        <label for="{{ form.date_of_birth.id_for_label }}" class="block text-gray-700 font-medium mb-2">Date of Birth</label>
+                                        <label for="{{ form.date_of_birth.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">Date of Birth</label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                </svg>
-                                            </div>
                                             <input type="date" 
                                                    name="{{ form.date_of_birth.name }}" 
                                                    id="{{ form.date_of_birth.id_for_label }}" 
                                                    value="{{ form.date_of_birth.value|default:'' }}" 
-                                                   class="pl-10 form-input {% if form.date_of_birth.errors %}border-red-500{% endif %}" 
+                                                   class="form-input {% if form.date_of_birth.errors %}border-red-500{% endif %}" 
                                                    max="{{ today|default:'' }}">
                                         </div>
                                         {% if form.date_of_birth.errors %}
@@ -245,7 +241,7 @@
                                     
                                     <!-- National ID -->
                                     <div>
-                                        <label for="{{ form.national_id.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">National ID</label>
+                                        <label for="{{ form.national_id.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">National ID / Passport Number</label>
                                         <input type="text"
                                                name="{{ form.national_id.name }}"
                                                id="{{ form.national_id.id_for_label }}"
@@ -269,16 +265,11 @@
                                     <div>
                                         <label for="{{ form.email.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">Email Address</label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                </svg>
-                                            </div>
                                             <input type="email" 
                                                    name="{{ form.email.name }}" 
                                                    id="{{ form.email.id_for_label }}" 
                                                    value="{{ form.email.value|default:'' }}" 
-                                                   class="pl-10 form-input {% if form.email.errors %}border-red-500{% endif %}"
+                                                   class="form-input {% if form.email.errors %}border-red-500{% endif %}"
                                                    required>
                                         </div>
                                         {% if form.email.errors %}
@@ -314,11 +305,6 @@
                                                 <option value="{{ country.code }}" {% if form.country.value == country.code %}selected{% endif %}>{{ country.name }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                                </svg>
-                                            </div>
                                         </div>
                                     </div>
                                     
@@ -326,17 +312,11 @@
                                     <div>
                                         <label for="{{ form.city.id_for_label }}" class="block text-gray-700 font-medium mb-2">City/Town</label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                </svg>
-                                            </div>
                                             <input type="text" 
                                                    name="{{ form.city.name }}" 
                                                    id="{{ form.city.id_for_label }}" 
                                                    value="{{ form.city.value|default:'' }}" 
-                                                   class="pl-10 form-input {% if form.city.errors %}border-red-500{% endif %}"
+                                                   class="form-input {% if form.city.errors %}border-red-500{% endif %}"
                                                    placeholder="Enter your city or town">
                                         </div>
                                         {% if form.city.errors %}
@@ -354,16 +334,11 @@
                                     <div>
                                         <label for="{{ form.reg_number.id_for_label }}" class="block text-gray-700 font-medium mb-2">Registration Number</label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                </svg>
-                                            </div>
                                             <input type="text" 
                                                    name="{{ form.reg_number.name }}" 
                                                    id="{{ form.reg_number.id_for_label }}" 
                                                    value="{{ form.reg_number.value|default:'' }}"
-                                                   class="pl-10 form-input {% if form.reg_number.errors %}border-red-500{% endif %}"
+                                                   class="form-input {% if form.reg_number.errors %}border-red-500{% endif %}"
                                                    placeholder="e.g. R123456X">
                                         </div>
                                         {% if form.reg_number.errors %}
@@ -375,16 +350,11 @@
                                     <div>
                                         <label for="{{ form.programme_studied.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">Programme Studied</label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6" />
-                                                </svg>
-                                            </div>
                                             <input type="text"
                                                    name="{{ form.programme_studied.name }}"
                                                    id="{{ form.programme_studied.id_for_label }}"
                                                    value="{{ form.programme_studied.value|default:'' }}"
-                                                   class="pl-10 form-input {% if form.programme_studied.errors %}border-red-500{% endif %}"
+                                                   class="form-input {% if form.programme_studied.errors %}border-red-500{% endif %}"
                                                    placeholder="e.g. BSc Computer Science"
                                                    required>
                                         </div>
@@ -406,11 +376,6 @@
                                                 <option value="{{ year }}" {% if form.graduation_year.value == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                                </svg>
-                                            </div>
                                         </div>
                                         {% if form.graduation_year.errors %}
                                         <p class="error-message">{{ form.graduation_year.errors.0 }}</p>
@@ -429,11 +394,6 @@
                                                 <option value="{{ value }}" {% if form.degree_level.value == value %}selected{% endif %}>{{ label }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                                </svg>
-                                            </div>
                                         </div>
                                         {% if form.degree_level.errors %}
                                         <p class="error-message">{{ form.degree_level.errors.0 }}</p>
@@ -448,7 +408,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <!-- Employment Status -->
                                     <div>
-                                        <label for="{{ form.employment_status.id_for_label }}" class="block text-gray-700 font-medium mb-2">Employment Status</label>
+                                        <label for="{{ form.employment_status.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">Employment Status</label>
                                         <div class="relative">
                                             <select name="{{ form.employment_status.name }}" 
                                                     id="{{ form.employment_status.id_for_label }}" 
@@ -458,11 +418,6 @@
                                                 <option value="{{ value }}" {% if form.employment_status.value == value %}selected{% endif %}>{{ label }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                                </svg>
-                                            </div>
                                         </div>
                                         {% if form.employment_status.errors %}
                                         <p class="error-message">{{ form.employment_status.errors.0 }}</p>
@@ -470,19 +425,14 @@
                                     </div>
                                     
                                     <!-- Name of Organisation -->
-                                    <div>
+                                    <div class="employment-detail hidden">
                                         <label for="{{ form.current_employer.id_for_label }}" class="block text-gray-700 font-medium mb-2">Name of Organisation</label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                                </svg>
-                                            </div>
                                             <input type="text"
                                                    name="{{ form.current_employer.name }}"
                                                    id="{{ form.current_employer.id_for_label }}"
                                                    value="{{ form.current_employer.value|default:'' }}"
-                                                   class="pl-10 form-input {% if form.current_employer.errors %}border-red-500{% endif %}"
+                                                   class="form-input {% if form.current_employer.errors %}border-red-500{% endif %}"
                                                    placeholder="Name of Organisation">
                                         </div>
                                         {% if form.current_employer.errors %}
@@ -491,19 +441,14 @@
                                     </div>
                                     
                                     <!-- Designation -->
-                                    <div>
+                                    <div class="employment-detail hidden">
                                         <label for="{{ form.job_title.id_for_label }}" class="block text-gray-700 font-medium mb-2">Designation</label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                                </svg>
-                                            </div>
                                             <input type="text"
                                                    name="{{ form.job_title.name }}"
                                                    id="{{ form.job_title.id_for_label }}"
                                                    value="{{ form.job_title.value|default:'' }}"
-                                                   class="pl-10 form-input {% if form.job_title.errors %}border-red-500{% endif %}"
+                                                   class="form-input {% if form.job_title.errors %}border-red-500{% endif %}"
                                                    placeholder="Your job title or designation">
                                         </div>
                                         {% if form.job_title.errors %}
@@ -512,23 +457,33 @@
                                     </div>
                                     
                                     <!-- Industry -->
-                                    <div>
+                                    <div class="employment-detail hidden">
                                         <label for="{{ form.industry.id_for_label }}" class="block text-gray-700 font-medium mb-2">Industry</label>
                                         <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                </svg>
-                                            </div>
                                             <input type="text"
                                                    name="{{ form.industry.name }}"
                                                    id="{{ form.industry.id_for_label }}"
                                                    value="{{ form.industry.value|default:'' }}"
-                                                   class="pl-10 form-input {% if form.industry.errors %}border-red-500{% endif %}"
+                                                   class="form-input {% if form.industry.errors %}border-red-500{% endif %}"
                                                    placeholder="e.g. Technology, Finance, Education">
                                         </div>
                                         {% if form.industry.errors %}
                                         <p class="error-message">{{ form.industry.errors.0 }}</p>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Please specify -->
+                                    <div id="employment-other-container" class="hidden">
+                                        <label for="{{ form.employment_other_details.id_for_label }}" class="block text-gray-700 font-medium mb-2">Please specify</label>
+                                        <div class="relative">
+                                            <textarea name="{{ form.employment_other_details.name }}"
+                                                      id="{{ form.employment_other_details.id_for_label }}"
+                                                      class="form-input {% if form.employment_other_details.errors %}border-red-500{% endif %}"
+                                                      placeholder="Please provide more details about your employment status"
+                                                      rows="3">{{ form.employment_other_details.value|default:'' }}</textarea>
+                                        </div>
+                                        {% if form.employment_other_details.errors %}
+                                        <p class="error-message">{{ form.employment_other_details.errors.0 }}</p>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -752,14 +707,21 @@
 {% block extra_js %}
 {{ block.super }}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{% static 'js/alumni_registration.js' %}"></script>
 {% endblock %}
 
-        <!-- BEGIN deprecated inline JS
-if (strongRegex.test(password)) {
+<script>
+    // Password strength checker
+    function checkPasswordStrength(password) {
+        const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/;
+        const mediumRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/;
+        
+        if (strongRegex.test(password)) {
             return 'strong';
         } else if (mediumRegex.test(password)) {
             return 'medium';
@@ -772,63 +734,49 @@ if (strongRegex.test(password)) {
     document.addEventListener('DOMContentLoaded', function() {
         const meter = document.getElementById('password-strength-meter');
         const text = document.getElementById('password-strength-text');
-        let strength = 0;
         
         // Check password length
         const passwordInput = document.getElementById('{{ form.password1.id_for_label }}');
         if (passwordInput) {
             passwordInput.addEventListener('input', function() {
                 const password = passwordInput.value;
-                const result = checkPasswordStrength(password);
+                let strength = 0;
+                
+                // Calculate strength
+                if (password.length >= 8) strength++;
+                if (password.length >= 12) strength++;
+                if (password.match(/[a-z]+/)) strength++;
+                if (password.match(/[A-Z]+/)) strength++;
+                if (password.match(/[0-9]+/)) strength++;
+                if (password.match(/[^A-Za-z0-9]+/)) strength++;
+                
+                // Update UI
                 if (meter) {
-                    if (result === 'strong') {
-                        meter.className = 'w-full h-1.5 rounded bg-green-500';
-                        if (text) text.textContent = 'Strong';
-                    } else if (result === 'medium') {
-                        meter.className = 'w-full h-1.5 rounded bg-yellow-500';
-                        if (text) text.textContent = 'Moderate';
-                    } else {
+                    if (password.length === 0) {
+                        meter.className = 'w-full h-1.5 rounded bg-gray-200';
+                        if (text) text.textContent = '';
+                    } else if (strength <= 2) {
                         meter.className = 'w-full h-1.5 rounded bg-red-500';
-                        if (text) text.textContent = 'Weak';
+                        if (text) {
+                            text.textContent = 'Weak';
+                            text.className = 'text-xs text-red-600 mt-1';
+                        }
+                    } else if (strength <= 4) {
+                        meter.className = 'w-full h-1.5 rounded bg-yellow-500';
+                        if (text) {
+                            text.textContent = 'Moderate';
+                            text.className = 'text-xs text-yellow-600 mt-1';
+                        }
+                    } else {
+                        meter.className = 'w-full h-1.5 rounded bg-green-500';
+                        if (text) {
+                            text.textContent = 'Strong';
+                            text.className = 'text-xs text-green-600 mt-1';
+                        }
                     }
-        if (password.length >= 8) strength++;
-        if (password.length >= 12) strength++;
-        
-        // Check for character variety
-        if (password.match(/[a-z]+/)) strength++;
-        if (password.match(/[A-Z]+/)) strength++;
-        if (password.match(/[0-9]+/)) strength++;
-        if (password.match(/[^A-Za-z0-9]+/)) strength++;
-        
-        // Update UI
-        if (meter) {
-            meter.value = strength;
-            
-            // Update meter color and text
-            if (password.length === 0) {
-                meter.className = 'w-full h-1.5 rounded bg-gray-200';
-                if (text) text.textContent = '';
-            } else if (strength <= 2) {
-                meter.className = 'w-full h-1.5 rounded bg-red-500';
-                if (text) {
-                    text.textContent = 'Weak';
-                    text.className = 'text-xs text-red-600 mt-1';
                 }
-            } else if (strength <= 4) {
-                meter.className = 'w-full h-1.5 rounded bg-yellow-500';
-                if (text) {
-                    text.textContent = 'Moderate';
-                    text.className = 'text-xs text-yellow-600 mt-1';
-                }
-            } else {
-                meter.className = 'w-full h-1.5 rounded bg-green-500';
-                if (text) {
-                    text.textContent = 'Strong';
-                    text.className = 'text-xs text-green-600 mt-1';
-                }
-            }
+            });
         }
-    }
 
     // Initialize form when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
@@ -885,14 +833,16 @@ if (strongRegex.test(password)) {
             dropdownParent: $('body')
         })
 
-        // Simple phone validation with dial code
-        const dialCodeSelect = document.getElementById('dial_code');
+        // Initialize phone validation with intl-tel-input
         const phoneInput = document.getElementById('{{ form.mobile_number.id_for_label }}');
-        if (dialCodeSelect && phoneInput) {
-            phoneInput.addEventListener('input', () => clearError(phoneInput));
+        let iti;
+        if (phoneInput) {
+            iti = window.intlTelInput(phoneInput, {
                 separateDialCode: true,
                 utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js'
             });
+
+            phoneInput.addEventListener('input', () => clearError(phoneInput));
 
             phoneInput.addEventListener('blur', function() {
                 if (phoneInput.value.trim()) {
@@ -914,7 +864,13 @@ if (strongRegex.test(password)) {
         // Initialize date picker for date of birth
         const dateOfBirthInput = document.getElementById('{{ form.date_of_birth.id_for_label }}');
         if (dateOfBirthInput) {
-
+            // Initialize Flatpickr date picker
+            flatpickr(dateOfBirthInput, {
+                dateFormat: "Y-m-d",
+                maxDate: new Date(),
+                allowInput: true,
+                disableMobile: true
+            });
 
             // Also validate when user leaves the field
             dateOfBirthInput.addEventListener('blur', function() {
@@ -1081,7 +1037,7 @@ if (strongRegex.test(password)) {
                     }
                 });
                 
-                // Validate email format
+// Validate email format
                 const emailField = document.getElementById('{{ form.email.id_for_label }}');
                 if (emailField && emailField.value) {
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1096,6 +1052,42 @@ if (strongRegex.test(password)) {
                         }
                         isValid = false;
                         if (!firstError) firstError = emailField;
+                    }
+                }
+                
+                // Validate first name format
+                const firstNameField = document.getElementById('{{ form.first_name.id_for_label }}');
+                if (firstNameField && firstNameField.value) {
+                    const nameRegex = /^[a-zA-Z\s]+$/;
+                    if (!nameRegex.test(firstNameField.value)) {
+                        firstNameField.classList.add('border-red-500');
+                        let errorElement = firstNameField.nextElementSibling;
+                        if (!errorElement || !errorElement.classList.contains('text-red-500')) {
+                            errorElement = document.createElement('p');
+                            errorElement.className = 'text-red-500 text-sm mt-1';
+                            errorElement.textContent = 'First name must contain only letters and spaces';
+                            firstNameField.parentNode.insertBefore(errorElement, firstNameField.nextSibling);
+                        }
+                        isValid = false;
+                        if (!firstError) firstError = firstNameField;
+                    }
+                }
+                
+// Validate last name format
+                const lastNameField = document.getElementById('{{ form.last_name.id_for_label }}');
+                if (lastNameField && lastNameField.value) {
+                    const nameRegex = /^[a-zA-Z\s]+$/;
+                    if (!nameRegex.test(lastNameField.value)) {
+                        lastNameField.classList.add('border-red-500');
+                        let errorElement = lastNameField.nextElementSibling;
+                        if (!errorElement || !errorElement.classList.contains('text-red-500')) {
+                            errorElement = document.createElement('p');
+                            errorElement.className = 'text-red-500 text-sm mt-1';
+                            errorElement.textContent = 'Last name must contain only letters and spaces';
+                            lastNameField.parentNode.insertBefore(errorElement, lastNameField.nextSibling);
+                        }
+                        isValid = false;
+                        if (!firstError) firstError = lastNameField;
                     }
                 }
                 
@@ -1139,6 +1131,39 @@ if (strongRegex.test(password)) {
                 }
             });
             
+            // Gender change handler
+            const genderSelect = document.getElementById('{{ form.gender.id_for_label }}');
+            if (genderSelect) {
+                genderSelect.addEventListener('change', function() {
+                    const maidenNameContainer = document.getElementById('maiden-name-container');
+                    if (this.value === 'F') {
+                        maidenNameContainer.classList.remove('hidden');
+                    } else {
+                        maidenNameContainer.classList.add('hidden');
+                    }
+                });
+                // Trigger on page load if already selected
+                genderSelect.dispatchEvent(new Event('change'));
+            }
+            
+            // Employment status change handler
+            const employmentSelect = document.getElementById('{{ form.employment_status.id_for_label }}');
+            if (employmentSelect) {
+                employmentSelect.addEventListener('change', function() {
+                    const employmentDetails = document.querySelectorAll('.employment-detail');
+                    const employmentOther = document.getElementById('employment-other-container');
+                    if (this.value === 'formally_employed') {
+                        employmentDetails.forEach(el => el.classList.remove('hidden'));
+                        employmentOther.classList.add('hidden');
+                    } else {
+                        employmentDetails.forEach(el => el.classList.add('hidden'));
+                        employmentOther.classList.remove('hidden');
+                    }
+                });
+                // Trigger on page load if already selected
+                employmentSelect.dispatchEvent(new Event('change'));
+            }
+            
             // Remove error state when user starts typing
             form.querySelectorAll('input, select, textarea').forEach(field => {
                 field.addEventListener('input', function() {
@@ -1148,5 +1173,5 @@ if (strongRegex.test(password)) {
                 });
             });
         });
--->
+    });
 </script>
