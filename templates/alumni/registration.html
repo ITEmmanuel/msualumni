@@ -592,6 +592,28 @@
                                                class="h-5 w-5 text-msu-blue rounded border-gray-300 focus:ring-msu-blue">
                                         <label for="{{ form.interest_stay_informed.id_for_label }}" class="ml-3 block text-gray-700">5) Stay Informed</label>
                                     </div>
+
+                                    <!-- Other Interest -->
+                                    <div class="flex items-center">
+                                        <input type="checkbox" 
+                                               name="{{ form.interest_other.name }}" 
+                                               id="{{ form.interest_other.id_for_label }}"
+                                               {% if form.interest_other.value %}checked{% endif %}
+                                               class="h-5 w-5 text-msu-blue rounded border-gray-300 focus:ring-msu-blue">
+                                        <label for="{{ form.interest_other.id_for_label }}" class="ml-3 block text-gray-700">6) Other (please specify)</label>
+                                    </div>
+                                    <div id="interest-other-container" style="display: none;">
+                                        <label for="{{ form.interest_other_details.id_for_label }}" class="block text-gray-700 font-medium mb-2">Other interest details</label>
+                                        <textarea 
+                                            name="{{ form.interest_other_details.name }}"
+                                            id="{{ form.interest_other_details.id_for_label }}"
+                                            class="form-input {% if form.interest_other_details.errors %}border-red-500{% endif %}"
+                                            rows="3"
+                                            placeholder="Please specify your other interests">{{ form.interest_other_details.value|default:'' }}</textarea>
+                                        {% if form.interest_other_details.errors %}
+                                        <p class="error-message">{{ form.interest_other_details.errors.0 }}</p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                             
@@ -1217,4 +1239,5 @@
 {{ block.super }}
 <script src="{% static 'js/employment_fields.js' %}"></script>
 <script src="{% static 'js/maiden_name.js' %}"></script>
+<script src="{% static 'js/interest_other.js' %}"></script>
 {% endblock %}

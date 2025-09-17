@@ -29,7 +29,7 @@ class AlumniRegistrationForm(forms.ModelForm):
             'employment_status', 'current_employer', 'job_title', 'industry', 'employment_other_details',
             # Areas of Interest
             'interest_networking', 'interest_academic', 'interest_career',
-            'interest_giving_back', 'interest_stay_informed',
+            'interest_giving_back', 'interest_stay_informed', 'interest_other', 'interest_other_details',
             # Data Protection
             'data_protection_consent',
         ]
@@ -69,6 +69,12 @@ class AlumniRegistrationForm(forms.ModelForm):
             }),
             'interest_stay_informed': forms.CheckboxInput(attrs={
                 'class': 'h-5 w-5 text-msu-blue rounded border-gray-300 focus:ring-msu-blue',
+            }),
+            'interest_other': forms.CheckboxInput(attrs={
+                'class': 'h-5 w-5 text-msu-blue rounded border-gray-300 focus:ring-msu-blue',
+            }),
+            'interest_other_details': forms.Textarea(attrs={
+                'class': 'w-full p-2 border border-gray-300 rounded-md', 'rows': 3, 'placeholder': 'Please specify your other interests'
             }),
             'other_programs': forms.Textarea(attrs={'class': 'w-full p-2 border border-gray-300 rounded-md', 'rows': 3, 'placeholder': 'e.g., Postgrad Diploma in ...; Short Course in ...'}),
         }
