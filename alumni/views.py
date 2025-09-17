@@ -6,6 +6,7 @@ from .forms import AlumniRegistrationForm, AlumniFullUpdateForm, DonationForm
 from .models import AlumniStory, SocialLink
 from .models import Alumni, Newsletter, Event, IAROContent
 from django.utils import timezone
+import pycountry
 from django.utils.deprecation import MiddlewareMixin
 from django.http import HttpRequest
 import json
@@ -40,38 +41,23 @@ class RegistrationView(View):
     def get(self, request):
         form = AlumniRegistrationForm()
         
-        # List of countries with ISO codes and names
-        countries = [
-            {'code': 'ZW', 'name': 'Zimbabwe'},
-            {'code': 'ZA', 'name': 'South Africa'},
-            {'code': 'BW', 'name': 'Botswana'},
-            {'code': 'ZM', 'name': 'Zambia'},
-            {'code': 'MZ', 'name': 'Mozambique'},
-            {'code': 'TZ', 'name': 'Tanzania'},
-            {'code': 'KE', 'name': 'Kenya'},
-            {'code': 'UG', 'name': 'Uganda'},
-            {'code': 'RW', 'name': 'Rwanda'},
-            {'code': 'BI', 'name': 'Burundi'},
-            {'code': 'MW', 'name': 'Malawi'},
-            {'code': 'NA', 'name': 'Namibia'},
-            {'code': 'LS', 'name': 'Lesotho'},
-            {'code': 'SZ', 'name': 'Eswatini'},
-            {'code': 'GH', 'name': 'Ghana'},
-            {'code': 'NG', 'name': 'Nigeria'},
-            {'code': 'US', 'name': 'United States'},
-            {'code': 'GB', 'name': 'United Kingdom'},
-            {'code': 'CA', 'name': 'Canada'},
-            {'code': 'AU', 'name': 'Australia'}
-        ]
-        
-        # Sort countries alphabetically by name
-        countries_sorted = sorted(countries, key=lambda x: x['name'])
+        # Load all ISO countries (alpha_2 code + common name)
+        countries_sorted = sorted(
+            (
+                {
+                    'code': c.alpha_2,
+                    'name': getattr(c, 'common_name', None) or getattr(c, 'name', '')
+                }
+                for c in pycountry.countries
+            ),
+            key=lambda x: x['name']
+        )
         
         context = {
             'form': form,
             'now': timezone.now(),
             'countries': countries_sorted,
-            'year_choices': list(range(1980, timezone.now().year + 3))
+            'year_choices': list(range(2000, timezone.now().year + 3))
         }
         return render(request, 'alumni/registration.html', context)
     
@@ -83,32 +69,12 @@ class RegistrationView(View):
             # Handle the country and city fields from Select2
             country_code = request.POST.get('country')
             if country_code:
-                # Find the country name from the code
-                countries = [
-                    {'code': 'ZW', 'name': 'Zimbabwe'},
-                    {'code': 'ZA', 'name': 'South Africa'},
-                    {'code': 'BW', 'name': 'Botswana'},
-                    {'code': 'ZM', 'name': 'Zambia'},
-                    {'code': 'MZ', 'name': 'Mozambique'},
-                    {'code': 'TZ', 'name': 'Tanzania'},
-                    {'code': 'KE', 'name': 'Kenya'},
-                    {'code': 'UG', 'name': 'Uganda'},
-                    {'code': 'RW', 'name': 'Rwanda'},
-                    {'code': 'BI', 'name': 'Burundi'},
-                    {'code': 'MW', 'name': 'Malawi'},
-                    {'code': 'NA', 'name': 'Namibia'},
-                    {'code': 'LS', 'name': 'Lesotho'},
-                    {'code': 'SZ', 'name': 'Eswatini'},
-                    {'code': 'GH', 'name': 'Ghana'},
-                    {'code': 'NG', 'name': 'Nigeria'},
-                    {'code': 'US', 'name': 'United States'},
-                    {'code': 'GB', 'name': 'United Kingdom'},
-                    {'code': 'CA', 'name': 'Canada'},
-                    {'code': 'AU', 'name': 'Australia'}
-                ]
-                country = next((c for c in countries if c['code'] == country_code), None)
-                if country:
-                    alumni.country = country['name']
+                try:
+                    country_obj = pycountry.countries.get(alpha_2=country_code)
+                    if country_obj:
+                        alumni.country = getattr(country_obj, 'common_name', None) or country_obj.name
+                except Exception:
+                    pass
             
             # Handle city (can be a predefined value or custom input)
             city = request.POST.get('city')
@@ -173,50 +139,40 @@ class RegistrationView(View):
                     "An error occurred during registration. Please try again or contact support if the problem persists."
                 )
                 # Add all necessary context for the form template
-                countries = [
-                    {'code': 'ZW', 'name': 'Zimbabwe'},
-                    {'code': 'ZA', 'name': 'South Africa'},
-                    {'code': 'BW', 'name': 'Botswana'},
-                    # ... other countries
-                ]
-                countries_sorted = sorted(countries, key=lambda x: x['name'])
+                countries_sorted = sorted(
+                    (
+                        {
+                            'code': c.alpha_2,
+                            'name': getattr(c, 'common_name', None) or getattr(c, 'name', '')
+                        }
+                        for c in pycountry.countries
+                    ),
+                    key=lambda x: x['name']
+                )
                 context = {
                     'form': form,
                     'now': timezone.now(),
                     'countries': countries_sorted,
-                    'year_choices': list(range(1980, timezone.now().year + 3))
+                    'year_choices': list(range(2000, timezone.now().year + 3))
                 }
                 return render(request, 'alumni/registration.html', context)
             
         # Get the same context as in get() method
-        countries = [
-            {'code': 'ZW', 'name': 'Zimbabwe'},
-            {'code': 'ZA', 'name': 'South Africa'},
-            {'code': 'BW', 'name': 'Botswana'},
-            {'code': 'ZM', 'name': 'Zambia'},
-            {'code': 'MZ', 'name': 'Mozambique'},
-            {'code': 'TZ', 'name': 'Tanzania'},
-            {'code': 'KE', 'name': 'Kenya'},
-            {'code': 'UG', 'name': 'Uganda'},
-            {'code': 'RW', 'name': 'Rwanda'},
-            {'code': 'BI', 'name': 'Burundi'},
-            {'code': 'MW', 'name': 'Malawi'},
-            {'code': 'NA', 'name': 'Namibia'},
-            {'code': 'LS', 'name': 'Lesotho'},
-            {'code': 'SZ', 'name': 'Eswatini'},
-            {'code': 'GH', 'name': 'Ghana'},
-            {'code': 'NG', 'name': 'Nigeria'},
-            {'code': 'US', 'name': 'United States'},
-            {'code': 'GB', 'name': 'United Kingdom'},
-            {'code': 'CA', 'name': 'Canada'},
-            {'code': 'AU', 'name': 'Australia'}
-        ]
-        countries_sorted = sorted(countries, key=lambda x: x['name'])
+        countries_sorted = sorted(
+            (
+                {
+                    'code': c.alpha_2,
+                    'name': getattr(c, 'common_name', None) or getattr(c, 'name', '')
+                }
+                for c in pycountry.countries
+            ),
+            key=lambda x: x['name']
+        )
         context = {
             'form': form,
             'now': timezone.now(),
             'countries': countries_sorted,
-            'year_choices': list(range(1980, timezone.now().year + 3))
+            'year_choices': list(range(2000, timezone.now().year + 3))
         }
         return render(request, 'alumni/registration.html', context)
 

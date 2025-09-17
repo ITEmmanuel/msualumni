@@ -24,6 +24,7 @@ class AlumniRegistrationForm(forms.ModelForm):
             'email', 'mobile_number', 'city', 'country',
             # Academic Information
             'reg_number', 'programme_studied', 'graduation_year', 'degree_level',
+            'other_programs',
             # Employment Information
             'employment_status', 'current_employer', 'job_title', 'industry', 'employment_other_details',
             # Areas of Interest
@@ -43,7 +44,7 @@ class AlumniRegistrationForm(forms.ModelForm):
             'gender': forms.Select(attrs={'class': 'w-full p-2 border border-gray-300 rounded-md'}),
             'graduation_year': forms.NumberInput(attrs={
                 'class': 'w-full p-2 border border-gray-300 rounded-md',
-                'min': 1980,
+                'min': 2000,
                 'max': timezone.now().year + 2
             }),
             # Employment widgets
@@ -69,6 +70,7 @@ class AlumniRegistrationForm(forms.ModelForm):
             'interest_stay_informed': forms.CheckboxInput(attrs={
                 'class': 'h-5 w-5 text-msu-blue rounded border-gray-300 focus:ring-msu-blue',
             }),
+            'other_programs': forms.Textarea(attrs={'class': 'w-full p-2 border border-gray-300 rounded-md', 'rows': 3, 'placeholder': 'e.g., Postgrad Diploma in ...; Short Course in ...'}),
         }
     
     def __init__(self, *args, **kwargs):

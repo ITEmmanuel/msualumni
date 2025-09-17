@@ -56,43 +56,18 @@
             phone: 'id_mobile_number'
         };
 
-        // ----- Select2 for country -----
+        // ----- Select2 for country (Basic usage like the doc) -----
         if (window.jQuery && window.jQuery.fn && window.jQuery.fn.select2) {
-            const $country = window.jQuery('#' + ids.country);
-            const $gradYear = window.jQuery('#' + ids.graduationYear);
-            
-            // Initialize country select2
-            if ($country.length) {
-                $country.select2({
-                    theme: 'bootstrap-5',
-                    width: '100%',
-                    placeholder: 'Select a country',
-                    allowClear: true,
-                    dropdownParent: window.jQuery('body')
+            const $ = window.jQuery;
+            // Basic init on class; add fallbacks
+            const $targets = $('.js-example-basic-single, #country, #' + ids.country);
+            if ($targets.length) {
+                $targets.select2();
+                // Restore selected value when provided via data-selected
+                $targets.each(function () {
+                    const val = $(this).data('selected');
+                    if (val) $(this).val(val).trigger('change');
                 });
-                
-                // Make sure the selected value is properly set
-                const selectedCountry = $country.data('selected');
-                if (selectedCountry) {
-                    $country.val(selectedCountry).trigger('change');
-                }
-            }
-            
-            // Initialize graduation year select2
-            if ($gradYear.length) {
-                $gradYear.select2({
-                    theme: 'bootstrap-5',
-                    width: '100%',
-                    placeholder: 'Select graduation year',
-                    allowClear: false,
-                    dropdownParent: window.jQuery('body')
-                });
-                
-                // Make sure the selected value is properly set
-                const selectedYear = $gradYear.data('selected');
-                if (selectedYear) {
-                    $gradYear.val(selectedYear).trigger('change');
-                }
             }
         }
 

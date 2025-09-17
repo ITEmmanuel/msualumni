@@ -103,6 +103,27 @@
         margin-left: 0.25rem;
     }
     
+    /* Employment section specific styles */
+    .employment-detail {
+        transition: all 0.3s ease-in-out;
+    }
+    
+    .employment-detail.show {
+        display: block !important;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .employment-detail.hide {
+        display: none !important;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    
+    #employment-other-container {
+        transition: all 0.3s ease-in-out;
+    }
+    
     /* Responsive adjustments */
     @media (min-width: 1024px) {
         .form-container {
@@ -166,6 +187,7 @@
                                                    id="{{ form.first_name.id_for_label }}" 
                                                    value="{{ form.first_name.value|default:'' }}" 
                                                    class="form-input {% if form.first_name.errors %}border-red-500{% endif %}"
+                                                   autocomplete="family-name"
                                                    required>
                                         </div>
                                         {% if form.first_name.errors %}
@@ -182,6 +204,7 @@
                                                    id="{{ form.last_name.id_for_label }}" 
                                                    value="{{ form.last_name.value|default:'' }}" 
                                                    class="form-input {% if form.last_name.errors %}border-red-500{% endif %}"
+                                                   autocomplete="given-name"
                                                    required>
                                         </div>
                                         {% if form.last_name.errors %}
@@ -208,7 +231,7 @@
                                     </div>
                                     
                                     <!-- Maiden Name -->
-                                    <div id="maiden-name-container" class="hidden">
+                                    <div id="maiden-name-container" style="display: none;">
                                         <label for="{{ form.maiden_name.id_for_label }}" class="block text-gray-700 font-medium mb-2">Maiden Name</label>
                                         <div class="relative">
                                             <input type="text" 
@@ -232,6 +255,7 @@
                                                    id="{{ form.date_of_birth.id_for_label }}" 
                                                    value="{{ form.date_of_birth.value|default:'' }}" 
                                                    class="form-input {% if form.date_of_birth.errors %}border-red-500{% endif %}" 
+                                                   autocomplete="bday"
                                                    max="{{ today|default:'' }}">
                                         </div>
                                         {% if form.date_of_birth.errors %}
@@ -247,6 +271,7 @@
                                                id="{{ form.national_id.id_for_label }}"
                                                value="{{ form.national_id.value|default:'' }}"
                                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-msu-blue focus:border-msu-blue transition duration-200"
+                                               autocomplete="off"
                                                placeholder="e.g. 63-1234567X12"
                                                required>
                                         <p class="text-xs text-gray-500 mt-1">{{ form.national_id.help_text }}</p>
@@ -270,6 +295,7 @@
                                                    id="{{ form.email.id_for_label }}" 
                                                    value="{{ form.email.value|default:'' }}" 
                                                    class="form-input {% if form.email.errors %}border-red-500{% endif %}"
+                                                   autocomplete="email"
                                                    required>
                                         </div>
                                         {% if form.email.errors %}
@@ -285,6 +311,7 @@
                                                id="{{ form.mobile_number.id_for_label }}"
                                                value="{{ form.mobile_number.value|default:'' }}"
                                                class="w-full form-input {% if form.mobile_number.errors %}border-red-500{% endif %}"
+                                               autocomplete="tel"
                                                placeholder="+263771234567" required>
                                         {% if form.mobile_number.errors %}
                                         <p class="error-message">{{ form.mobile_number.errors.0 }}</p>
@@ -297,7 +324,8 @@
                                         <div class="relative">
                                             <select name="country" 
                                                      id="country" 
-                                                     class="form-select appearance-none"
+                                                     class="form-select appearance-none js-example-basic-single"
+                                                     autocomplete="country"
                                                      data-selected="{{ form.country.value }}"
                                                      required>
                                                 <option value="">Select Country</option>
@@ -317,6 +345,7 @@
                                                    id="{{ form.city.id_for_label }}" 
                                                    value="{{ form.city.value|default:'' }}" 
                                                    class="form-input {% if form.city.errors %}border-red-500{% endif %}"
+                                                   autocomplete="address-level2"
                                                    placeholder="Enter your city or town">
                                         </div>
                                         {% if form.city.errors %}
@@ -399,6 +428,23 @@
                                         <p class="error-message">{{ form.degree_level.errors.0 }}</p>
                                         {% endif %}
                                     </div>
+                                    
+                                    <!-- Other MSU Programs -->
+                                    <div class="md:col-span-2">
+                                        <label for="{{ form.other_programs.id_for_label }}" class="block text-gray-700 font-medium mb-2">Other MSU Programs (optional)</label>
+                                        <div class="relative">
+                                            <textarea 
+                                                name="{{ form.other_programs.name }}" 
+                                                id="{{ form.other_programs.id_for_label }}" 
+                                                class="form-input {% if form.other_programs.errors %}border-red-500{% endif %}"
+                                                rows="3"
+                                                placeholder="e.g., Postgraduate Diploma in..., Short Course in..., Second Degree in...">{{ form.other_programs.value|default:'' }}</textarea>
+                                        </div>
+                                        {% if form.other_programs.errors %}
+                                        <p class="error-message">{{ form.other_programs.errors.0 }}</p>
+                                        {% endif %}
+                                        <p class="text-xs text-gray-500 mt-1">List any additional programs you obtained from MSU (separate with commas).</p>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -425,7 +471,7 @@
                                     </div>
                                     
                                     <!-- Name of Organisation -->
-                                    <div class="employment-detail hidden">
+                                    <div class="employment-detail" style="display: none;">
                                         <label for="{{ form.current_employer.id_for_label }}" class="block text-gray-700 font-medium mb-2">Name of Organisation</label>
                                         <div class="relative">
                                             <input type="text"
@@ -433,6 +479,7 @@
                                                    id="{{ form.current_employer.id_for_label }}"
                                                    value="{{ form.current_employer.value|default:'' }}"
                                                    class="form-input {% if form.current_employer.errors %}border-red-500{% endif %}"
+                                                   autocomplete="organization"
                                                    placeholder="Name of Organisation">
                                         </div>
                                         {% if form.current_employer.errors %}
@@ -441,7 +488,7 @@
                                     </div>
                                     
                                     <!-- Designation -->
-                                    <div class="employment-detail hidden">
+                                    <div class="employment-detail" style="display: none;">
                                         <label for="{{ form.job_title.id_for_label }}" class="block text-gray-700 font-medium mb-2">Designation</label>
                                         <div class="relative">
                                             <input type="text"
@@ -449,6 +496,7 @@
                                                    id="{{ form.job_title.id_for_label }}"
                                                    value="{{ form.job_title.value|default:'' }}"
                                                    class="form-input {% if form.job_title.errors %}border-red-500{% endif %}"
+                                                   autocomplete="organization-title"
                                                    placeholder="Your job title or designation">
                                         </div>
                                         {% if form.job_title.errors %}
@@ -457,7 +505,7 @@
                                     </div>
                                     
                                     <!-- Industry -->
-                                    <div class="employment-detail hidden">
+                                    <div class="employment-detail" style="display: none;">
                                         <label for="{{ form.industry.id_for_label }}" class="block text-gray-700 font-medium mb-2">Industry</label>
                                         <div class="relative">
                                             <input type="text"
@@ -473,7 +521,7 @@
                                     </div>
                                     
                                     <!-- Please specify -->
-                                    <div id="employment-other-container" class="hidden">
+                                    <div id="employment-other-container" style="display: none;">
                                         <label for="{{ form.employment_other_details.id_for_label }}" class="block text-gray-700 font-medium mb-2">Please specify</label>
                                         <div class="relative">
                                             <textarea name="{{ form.employment_other_details.name }}"
@@ -1134,35 +1182,24 @@
             // Gender change handler
             const genderSelect = document.getElementById('{{ form.gender.id_for_label }}');
             if (genderSelect) {
-                genderSelect.addEventListener('change', function() {
+                function handleGenderChange() {
                     const maidenNameContainer = document.getElementById('maiden-name-container');
-                    if (this.value === 'F') {
-                        maidenNameContainer.classList.remove('hidden');
+                    if (genderSelect.value === 'F') {
+                        maidenNameContainer.style.display = 'block';
                     } else {
-                        maidenNameContainer.classList.add('hidden');
+                        maidenNameContainer.style.display = 'none';
                     }
-                });
+                }
+                
+                genderSelect.addEventListener('change', handleGenderChange);
+                
                 // Trigger on page load if already selected
-                genderSelect.dispatchEvent(new Event('change'));
+                setTimeout(function() {
+                    handleGenderChange();
+                }, 100);
             }
             
-            // Employment status change handler
-            const employmentSelect = document.getElementById('{{ form.employment_status.id_for_label }}');
-            if (employmentSelect) {
-                employmentSelect.addEventListener('change', function() {
-                    const employmentDetails = document.querySelectorAll('.employment-detail');
-                    const employmentOther = document.getElementById('employment-other-container');
-                    if (this.value === 'formally_employed') {
-                        employmentDetails.forEach(el => el.classList.remove('hidden'));
-                        employmentOther.classList.add('hidden');
-                    } else {
-                        employmentDetails.forEach(el => el.classList.add('hidden'));
-                        employmentOther.classList.remove('hidden');
-                    }
-                });
-                // Trigger on page load if already selected
-                employmentSelect.dispatchEvent(new Event('change'));
-            }
+            // Employment functionality moved to bottom of page
             
             // Remove error state when user starts typing
             form.querySelectorAll('input, select, textarea').forEach(field => {
@@ -1175,3 +1212,9 @@
         });
     });
 </script>
+
+{% block scripts %}
+{{ block.super }}
+<script src="{% static 'js/employment_fields.js' %}"></script>
+<script src="{% static 'js/maiden_name.js' %}"></script>
+{% endblock %}

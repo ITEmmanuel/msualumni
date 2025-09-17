@@ -95,7 +95,7 @@ class Alumni(models.Model):
     programme_studied = models.CharField(max_length=200)
     graduation_year = models.PositiveIntegerField(
         validators=[
-            MinValueValidator(1980),
+            MinValueValidator(2000),
             MaxValueValidator(datetime.now().year + 2)
         ]
     )
@@ -114,6 +114,7 @@ class Alumni(models.Model):
         blank=True,
         help_text='Highest degree level obtained at MSU'
     )
+    other_programs = models.TextField(blank=True, help_text='List other programs obtained from MSU (optional)')
     
     # System Fields
     registration_date = models.DateTimeField(default=timezone.now)
@@ -126,7 +127,7 @@ class Alumni(models.Model):
     EMPLOYMENT_STATUS_CHOICES = [
         ('formally_employed', 'Formally Employed'),
         ('self_employed', 'Self Employed'),
-        ('unemployed', 'Unemployed'),
+        ('unemployed', 'Not yet Employed'),
         ('other', 'Other')
     ]
     employment_status = models.CharField(max_length=50, choices=EMPLOYMENT_STATUS_CHOICES, blank=True)
@@ -146,6 +147,8 @@ class Alumni(models.Model):
                                            verbose_name='Giving Back')
     interest_stay_informed = models.BooleanField(default=False, 
                                              verbose_name='Stay Informed')
+    interest_other = models.BooleanField(default=False, verbose_name='Other Interest')
+    interest_other_details = models.TextField(blank=True, verbose_name='Please specify other interest')
     bio = models.TextField(blank=True)
     profile_picture = models.ImageField(upload_to='alumni_profile_pictures/', blank=True, null=True)
     

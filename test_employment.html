@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employment Field Test</title>
+    <style>
+        .employment-detail { display: none; margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        #employment-other-container { display: none; margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        select, input, textarea { margin: 5px 0; padding: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Employment Field Test</h1>
+    
+    <div>
+        <label>Employment Status:</label>
+        <select id="id_employment_status" name="employment_status">
+            <option value="">Select Status</option>
+            <option value="formally_employed">Formally Employed</option>
+            <option value="self_employed">Self Employed</option>
+            <option value="unemployed">Unemployed</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+    
+    <div class="employment-detail">
+        <label>Name of Organisation:</label>
+        <input type="text" name="current_employer" placeholder="Name of Organisation">
+    </div>
+    
+    <div class="employment-detail">
+        <label>Designation:</label>
+        <input type="text" name="job_title" placeholder="Your job title">
+    </div>
+    
+    <div class="employment-detail">
+        <label>Industry:</label>
+        <input type="text" name="industry" placeholder="e.g. Technology, Finance">
+    </div>
+    
+    <div id="employment-other-container">
+        <label>Please specify:</label>
+        <textarea name="employment_other_details" placeholder="Please provide details"></textarea>
+    </div>
+
+    <script>
+        // SIMPLE EMPLOYMENT FIELD HANDLER - GUARANTEED TO WORK
+        console.log('Starting employment field setup...');
+        
+        // Wait a bit for DOM to be fully ready
+        setTimeout(function() {
+            var employmentSelect = document.getElementById('id_employment_status');
+            console.log('Looking for employment select...', employmentSelect);
+            
+            if (employmentSelect) {
+                console.log('✓ Employment select found!');
+                
+                function showHideFields() {
+                    var value = employmentSelect.value;
+                    console.log('Employment status selected:', value);
+                    
+                    // Get all the fields we need to show/hide
+                    var orgField = document.querySelector('input[name="current_employer"]');
+                    var jobField = document.querySelector('input[name="job_title"]'); 
+                    var industryField = document.querySelector('input[name="industry"]');
+                    var otherField = document.querySelector('textarea[name="employment_other_details"]');
+                    
+                    // Get their parent containers
+                    var orgContainer = orgField ? orgField.closest('.employment-detail') : null;
+                    var jobContainer = jobField ? jobField.closest('.employment-detail') : null; 
+                    var industryContainer = industryField ? industryField.closest('.employment-detail') : null;
+                    var otherContainer = otherField ? otherField.closest('#employment-other-container') : null;
+                    
+                    console.log('Field containers found:', {
+                        org: !!orgContainer,
+                        job: !!jobContainer, 
+                        industry: !!industryContainer,
+                        other: !!otherContainer
+                    });
+                    
+                    // Hide all fields first
+                    if (orgContainer) { orgContainer.style.display = 'none'; }
+                    if (jobContainer) { jobContainer.style.display = 'none'; }
+                    if (industryContainer) { industryContainer.style.display = 'none'; }
+                    if (otherContainer) { otherContainer.style.display = 'none'; }
+                    
+                    // Show fields based on selection
+                    if (value === 'formally_employed' || value === 'self_employed') {
+                        console.log('✓ Showing employment fields for:', value);
+                        if (orgContainer) { 
+                            orgContainer.style.display = 'block'; 
+                            console.log('✓ Org field shown');
+                        }
+                        if (jobContainer) { 
+                            jobContainer.style.display = 'block';
+                            console.log('✓ Job field shown');
+                        }
+                        if (industryContainer) { 
+                            industryContainer.style.display = 'block';
+                            console.log('✓ Industry field shown');
+                        }
+                    } else if (value === 'other') {
+                        console.log('✓ Showing other field');
+                        if (otherContainer) { 
+                            otherContainer.style.display = 'block';
+                            console.log('✓ Other field shown');
+                        }
+                    } else {
+                        console.log('✓ No additional fields shown for:', value);
+                    }
+                }
+                
+                // Add the event listener
+                employmentSelect.addEventListener('change', showHideFields);
+                console.log('✓ Event listener added');
+                
+                // Run it once on page load
+                showHideFields();
+                console.log('✓ Initial field setup complete');
+                
+            } else {
+                console.error('✗ Employment status select field not found!');
+                // List all select elements for debugging
+                var selects = document.querySelectorAll('select');
+                console.log('Available select elements:', selects);
+            }
+        }, 100);
+        
+        console.log('Employment field setup script loaded');
+    </script>
+</body>
+</html>
