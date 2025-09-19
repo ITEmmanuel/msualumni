@@ -14,6 +14,7 @@ TEST_USERS = [
     {"username": "chenai", "password": "msu123", "job_title": "Alumni Officer"},
     {"username": "emmanuel", "password": "msu123", "job_title": "Alumni Officer"},
     {"username": "kudakwashe", "password": "msu123", "job_title": "Alumni Officer"},
+    {"username": "profchikoko", "password": "msu123", "job_title": "Alumni Officer"},
 ]
 
 class Command(BaseCommand):

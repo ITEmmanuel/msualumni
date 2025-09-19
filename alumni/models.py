@@ -143,6 +143,7 @@ class Alumni(models.Model):
     job_title = models.CharField(max_length=200, blank=True, verbose_name='Designation')
     industry = models.CharField(max_length=200, blank=True)
     employment_other_details = models.TextField(blank=True, verbose_name='Please specify')
+    date_of_engagement = models.DateField(blank=True, null=True, verbose_name='Date of Engagement')
     
     # Areas of Interest
     interest_networking = models.BooleanField(default=False, 

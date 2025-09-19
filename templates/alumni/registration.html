@@ -489,7 +489,7 @@
                                     
                                     <!-- Name of Organisation -->
                                     <div class="employment-detail" style="display: none;">
-                                        <label for="{{ form.current_employer.id_for_label }}" class="block text-gray-700 font-medium mb-2">Name of Organisation</label>
+                                        <label id="label-current-employer" for="{{ form.current_employer.id_for_label }}" class="block text-gray-700 font-medium mb-2">Name of Organisation</label>
                                         <div class="relative">
                                             <input type="text"
                                                    name="{{ form.current_employer.name }}"
@@ -506,7 +506,7 @@
                                     
                                     <!-- Designation -->
                                     <div class="employment-detail" style="display: none;">
-                                        <label for="{{ form.job_title.id_for_label }}" class="block text-gray-700 font-medium mb-2">Designation</label>
+                                        <label id="label-job-title" for="{{ form.job_title.id_for_label }}" class="block text-gray-700 font-medium mb-2">Designation</label>
                                         <div class="relative">
                                             <input type="text"
                                                    name="{{ form.job_title.name }}"
@@ -520,10 +520,25 @@
                                         <p class="error-message">{{ form.job_title.errors.0 }}</p>
                                         {% endif %}
                                     </div>
+
+                                    <!-- Date of Engagement (Formally Employed) -->
+                                    <div id="date-of-engagement-container" class="employment-detail" style="display: none;">
+                                        <label for="{{ form.date_of_engagement.id_for_label }}" class="block text-gray-700 font-medium mb-2">Date of Engagement</label>
+                                        <div class="relative">
+                                            <input type="date"
+                                                   name="{{ form.date_of_engagement.name }}"
+                                                   id="{{ form.date_of_engagement.id_for_label }}"
+                                                   value="{{ form.date_of_engagement.value|default:'' }}"
+                                                   class="form-input {% if form.date_of_engagement.errors %}border-red-500{% endif %}">
+                                        </div>
+                                        {% if form.date_of_engagement.errors %}
+                                        <p class="error-message">{{ form.date_of_engagement.errors.0 }}</p>
+                                        {% endif %}
+                                    </div>
                                     
                                     <!-- Industry -->
                                     <div class="employment-detail" style="display: none;">
-                                        <label for="{{ form.industry.id_for_label }}" class="block text-gray-700 font-medium mb-2">Industry</label>
+                                        <label id="label-industry" for="{{ form.industry.id_for_label }}" class="block text-gray-700 font-medium mb-2">Industry</label>
                                         <div class="relative">
                                             <input type="text"
                                                    name="{{ form.industry.name }}"
@@ -536,6 +551,7 @@
                                         <p class="error-message">{{ form.industry.errors.0 }}</p>
                                         {% endif %}
                                     </div>
+
                                     
                                     <!-- Please specify -->
                                     <div id="employment-other-container" style="display: none;">

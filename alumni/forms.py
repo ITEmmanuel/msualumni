@@ -26,7 +26,7 @@ class AlumniRegistrationForm(forms.ModelForm):
             'reg_number', 'programme_studied', 'graduation_year', 'degree_level',
             'other_programs',
             # Employment Information
-            'employment_status', 'current_employer', 'job_title', 'industry', 'employment_other_details',
+            'employment_status', 'current_employer', 'job_title', 'industry', 'date_of_engagement', 'employment_other_details',
             # Areas of Interest
             'interest_networking', 'interest_academic', 'interest_career',
             'interest_giving_back', 'interest_stay_informed', 'interest_other', 'interest_other_details',
@@ -56,6 +56,10 @@ class AlumniRegistrationForm(forms.ModelForm):
                                           'placeholder': 'Designation'}),
             
             # Interest widgets - using checkboxes
+            'date_of_engagement': forms.DateInput(attrs={
+                'type': 'date',
+                'class': 'w-full p-2 border border-gray-300 rounded-md'
+            }),
             'interest_networking': forms.CheckboxInput(attrs={
                 'class': 'h-5 w-5 text-msu-blue rounded border-gray-300 focus:ring-msu-blue',
             }),
