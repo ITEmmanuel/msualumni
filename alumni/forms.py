@@ -19,7 +19,7 @@ class AlumniRegistrationForm(forms.ModelForm):
         model = Alumni
         fields = [
             # Personal Information
-            'first_name', 'last_name', 'gender', 'maiden_name', 'date_of_birth', 'national_id',
+            'salutation', 'first_name', 'last_name', 'gender', 'maiden_name', 'date_of_birth', 'national_id',
             # Contact Information
             'email', 'mobile_number', 'city', 'country',
             # Academic Information
@@ -34,6 +34,7 @@ class AlumniRegistrationForm(forms.ModelForm):
             'data_protection_consent',
         ]
         widgets = {
+            'salutation': forms.Select(attrs={'class': 'w-full p-2 border border-gray-300 rounded-md'}),
             'date_of_birth': forms.DateInput(
                 attrs={
                     'type': 'date',
@@ -82,6 +83,7 @@ class AlumniRegistrationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Set required fields
+        self.fields['salutation'].required = True
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
         self.fields['gender'].required = True

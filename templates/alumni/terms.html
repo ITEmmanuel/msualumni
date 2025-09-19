@@ -1,0 +1,59 @@
+{% extends 'shared/base.html' %}
+{% block title %}Terms of Service{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-6 prose max-w-none">
+  <h1 class="text-2xl font-bold mb-4">Terms of Service</h1>
+
+  <p class="mb-4">These Terms of Service (“Terms”) govern your use of the MSU Alumni Platform (the “Platform”), provided by the Midlands State University International & Alumni Relations Office (“IARO”, “we”, “us”, or “our”). By accessing or using the Platform, you agree to these Terms.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">1. Eligibility</h2>
+  <p>You must be at least 18 years old and an alumnus/alumna, friend, or stakeholder of MSU to use this Platform.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">2. Your Account and Information</h2>
+  <ul class="list-disc pl-6">
+    <li>You agree to provide accurate and current information during registration and to keep it updated.</li>
+    <li>You are responsible for all activities under your account and for maintaining the confidentiality of your access credentials (if applicable).</li>
+  </ul>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">3. Acceptable Use</h2>
+  <ul class="list-disc pl-6">
+    <li>Do not submit unlawful, defamatory, or infringing content.</li>
+    <li>Do not attempt to compromise the security or integrity of the Platform or its data.</li>
+    <li>Do not misuse contact information obtained via the Platform for spam or unauthorised marketing.</li>
+  </ul>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">4. Content and Intellectual Property</h2>
+  <p>Content on the Platform is owned by or licensed to MSU. You may use it only for personal, non‑commercial alumni engagement purposes. Unauthorised copying or distribution is prohibited.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">5. Privacy</h2>
+  <p>Your use of the Platform is subject to our <a href="{% url 'alumni:privacy' %}">Privacy Policy</a>, which explains how we collect and process personal data.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">6. Events, Donations and Communications</h2>
+  <ul class="list-disc pl-6">
+    <li>Event participation may be subject to additional terms communicated during registration.</li>
+    <li>Donations (if applicable) are processed according to the details provided on the Platform or via authorised channels.</li>
+    <li>You may opt‑in or opt‑out of communications at any time subject to our privacy obligations.</li>
+  </ul>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">7. Third‑Party Services</h2>
+  <p>The Platform may link to external sites (e.g., social networks). We are not responsible for third‑party content, policies or practices.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">8. Service Availability and Changes</h2>
+  <p>We may update, suspend, or discontinue parts of the Platform to improve services or comply with law. We will endeavour to minimise disruption.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">9. Disclaimer and Liability</h2>
+  <p>The Platform is provided “as is” without warranties to the fullest extent permitted by law. To the extent allowed by law, we are not liable for indirect or consequential losses arising from your use of the Platform.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">10. Governing Law</h2>
+  <p>These Terms are governed by the laws of Zimbabwe. Disputes shall be subject to the jurisdiction of the courts of Zimbabwe.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">11. Contact</h2>
+  <p>For questions about these Terms, contact: <a href="mailto:alumni@admin.msu.ac.zw">alumni@admin.msu.ac.zw</a>, +263 54-2260283 ext. 2036/2103.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">12. Changes to these Terms</h2>
+  <p>We may update these Terms from time to time. Continued use of the Platform after changes take effect constitutes acceptance of the updated Terms.</p>
+
+  <p class="text-sm text-gray-500 mt-6">Last updated: {{ now|date:"Y-m-d" }}</p>
+</div>
+{% endblock %}
+

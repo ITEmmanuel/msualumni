@@ -1,0 +1,81 @@
+{% extends 'shared/base.html' %}
+{% block title %}Privacy Policy{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-6 prose max-w-none">
+  <h1 class="text-2xl font-bold mb-4">Privacy Policy</h1>
+
+  <p class="mb-4">This Privacy Policy explains how the Midlands State University (MSU) International & Alumni Relations Office (the “IARO”, “we”, “us”, or “our”) collects, uses, discloses, and protects your personal information when you use the MSU Alumni Platform (the “Platform”). By registering or using the Platform, you acknowledge that you have read and understood this Policy.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">1. Data Controller</h2>
+  <p>Midlands State University – International & Alumni Relations Office (IARO), Main Campus, Senga, Gweru, Zimbabwe. Contact: <a href="mailto:alumni@admin.msu.ac.zw">alumni@admin.msu.ac.zw</a>, +263 54-2260283 ext. 2036/2103.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">2. Legal Framework</h2>
+  <p>We process personal data in accordance with applicable Zimbabwean law, including the Cyber and Data Protection Act and the <a href="https://www.veritaszim.net/sites/veritas_d/files/SI%202024-155%20Cyber%20and%20Data%20Protection%20%28Licensing%20of%20Data%20Controllers%20and%20Appointment%20of%20Data%20Protection%20Officers%29%20Regulations%2C%202024.pdf" target="_blank" rel="noopener">Cyber and Data Protection (Licensing of Data Controllers and Appointment of Data Protection Officers) Regulations, 2024 (SI 2024-155)</a>.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">3. Personal Data We Collect</h2>
+  <ul class="list-disc pl-6">
+    <li>Identity data: salutation, first/last names, maiden name (optional), gender, date of birth, national ID/passport number.</li>
+    <li>Contact data: email address, mobile phone number, city, country.</li>
+    <li>Academic data: programme studied, graduation year, degree level, registration number, other MSU programmes.</li>
+    <li>Employment data: employment status, organisation name, designation, industry (where applicable).</li>
+    <li>Engagement data: areas of interest, event registrations, newsletter preferences, donations.</li>
+    <li>Media: profile photo and uploaded files (e.g., newsletter attachments).</li>
+    <li>Technical/log data: IP address, user agent, timestamps; internal audit logs of record changes.</li>
+  </ul>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">4. How We Use Your Data</h2>
+  <ul class="list-disc pl-6">
+    <li>To register and manage alumni records; maintain accurate alumni databases.</li>
+    <li>To communicate alumni news, events, programmes, and opportunities.</li>
+    <li>To organise and administer events and alumni engagement activities.</li>
+    <li>To generate anonymised reports and insights on alumni distribution and interests.</li>
+    <li>To process donations and acknowledgements.</li>
+    <li>To comply with legal obligations and protect the integrity and security of the Platform.</li>
+  </ul>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">5. Lawful Bases for Processing</h2>
+  <ul class="list-disc pl-6">
+    <li><strong>Consent</strong> – for optional communications and certain profile details (you may withdraw at any time).</li>
+    <li><strong>Legitimate interests</strong> – for alumni engagement, platform administration, internal reporting and security.</li>
+    <li><strong>Legal obligation</strong> – where required by law, regulation or court order.</li>
+    <li><strong>Contract</strong> – where processing is necessary to deliver requested services or event participation.</li>
+  </ul>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">6. Data Sharing</h2>
+  <p>We do not sell your personal data. We may share information with:</p>
+  <ul class="list-disc pl-6">
+    <li>Internal MSU units for alumni-related functions and support.</li>
+    <li>Service providers (e.g., hosting, email delivery) under confidentiality and data protection agreements.</li>
+    <li>Regulators or law enforcement when legally required.</li>
+  </ul>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">7. Cross‑Border Transfers</h2>
+  <p>Where services or hosting are provided outside Zimbabwe, we implement appropriate safeguards to protect your information in line with applicable law.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">8. Data Security</h2>
+  <p>We apply administrative, technical, and organisational measures to protect personal data (including access controls, encrypted transport, and audit logging). No system is entirely risk‑free; we continuously improve our safeguards.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">9. Data Retention</h2>
+  <p>We keep personal data only as long as necessary for alumni engagement, statutory requirements, and legitimate purposes. When no longer required, data is securely deleted or anonymised.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">10. Your Rights</h2>
+  <ul class="list-disc pl-6">
+    <li>Access, correction, and updating of your personal information.</li>
+    <li>Objection to or restriction of certain processing, and withdrawal of consent where applicable.</li>
+    <li>Deletion of your information, subject to legal/record‑keeping obligations.</li>
+    <li>Lodging a complaint with the competent authority under Zimbabwean law.</li>
+  </ul>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">11. Children’s Data</h2>
+  <p>The Platform is intended for adults and alumni aged 18+. We do not knowingly collect data from children.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">12. Contact</h2>
+  <p>For privacy queries or to exercise your rights, contact the IARO: <a href="mailto:alumni@admin.msu.ac.zw">alumni@admin.msu.ac.zw</a>, +263 54-2260283 ext. 2036/2103.</p>
+
+  <h2 class="text-xl font-semibold mt-6 mb-2">13. Changes to this Policy</h2>
+  <p>We may update this Policy to reflect changes in law or our operations. We will post updates on the Platform and revise the “Last updated” date below.</p>
+
+  <p class="text-sm text-gray-500 mt-6">Last updated: {{ now|date:"Y-m-d" }}</p>
+</div>
+{% endblock %}
+

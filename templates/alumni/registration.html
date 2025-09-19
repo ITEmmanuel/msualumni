@@ -178,6 +178,23 @@
                             <div class="form-section">
                                 <h3 class="section-title">Personal Information</h3>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- Salutation -->
+                                    <div>
+                                        <label for="{{ form.salutation.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">Salutation</label>
+                                        <div class="relative">
+                                            <select name="{{ form.salutation.name }}"
+                                                    id="{{ form.salutation.id_for_label }}"
+                                                    class="form-select appearance-none {% if form.salutation.errors %}border-red-500{% endif %}">
+                                                <option value="">Select</option>
+                                                {% for value, label in form.salutation.field.choices %}
+                                                <option value="{{ value }}" {% if form.salutation.value == value %}selected{% endif %}>{{ label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        {% if form.salutation.errors %}
+                                        <p class="error-message">{{ form.salutation.errors.0 }}</p>
+                                        {% endif %}
+                                    </div>
                                     <!-- First Name -->
                                     <div>
                                         <label for="{{ form.first_name.id_for_label }}" class="block text-gray-700 font-medium mb-2 required-field">Surname</label>
@@ -633,7 +650,7 @@
                                     <div class="ml-3">
                                         <label for="{{ form.data_protection_consent.id_for_label }}" class="text-sm text-gray-700">
                                             I consent to the processing of my personal data in accordance with the 
-                                            <a href="#" class="text-msu-blue hover:underline">Data Protection Policy</a>.
+                                            <a href="https://www.veritaszim.net/sites/veritas_d/files/SI%202024-155%20Cyber%20and%20Data%20Protection%20%28Licensing%20of%20Data%20Controllers%20and%20Appointment%20of%20Data%20Protection%20Officers%29%20Regulations%2C%202024.pdf" target="_blank" rel="noopener" class="text-msu-blue hover:underline">Data Protection Policy</a>.
                                         </label>
                                         {% if form.data_protection_consent.errors %}
                                         <p class="error-message">{{ form.data_protection_consent.errors.0 }}</p>
@@ -675,8 +692,8 @@
                                 </button>
                                 <p class="text-xs text-gray-500 mt-3 text-center">
                                     By submitting this form, you agree to our 
-                                    <a href="#" class="text-msu-blue hover:underline">Terms of Service</a> and 
-                                    <a href="#" class="text-msu-blue hover:underline">Privacy Policy</a>.
+                                    <a href="{% url 'alumni:terms' %}" class="text-msu-blue hover:underline">Terms of Service</a> and 
+                                    <a href="{% url 'alumni:privacy' %}" class="text-msu-blue hover:underline">Privacy Policy</a>.
                                 </p>
                             </div>
                         </form>
@@ -694,25 +711,31 @@
                             <svg class="h-5 w-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                             </svg>
-                            <span>Access exclusive alumni events and reunions</span>
+                            <span>Stay connected with your alma mater</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="h-5 w-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                             </svg>
-                            <span>Network with fellow alumni worldwide</span>
+                            <span>Receive exclusive alumni news, opportunities, and events</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="h-5 w-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                             </svg>
-                            <span>Career development opportunities</span>
+                            <span>Network with fellow graduates worldwide</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="h-5 w-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                             </svg>
-                            <span>Stay updated with university news</span>
+                            <span>Access mentorship, career, and professional development programs</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Support and contribute to MSU’s legacy</span>
                         </li>
                     </ul>
                 </div>
@@ -1240,4 +1263,5 @@
 <script src="{% static 'js/employment_fields.js' %}"></script>
 <script src="{% static 'js/maiden_name.js' %}"></script>
 <script src="{% static 'js/interest_other.js' %}"></script>
+<script src="{% static 'js/remove_empty_select_options.js' %}"></script>
 {% endblock %}

@@ -408,6 +408,20 @@ class DonateView(View):
         form = DonationForm()
         return render(request, self.template_name, {'form': form})
 
+
+class PrivacyView(View):
+    template_name = 'alumni/privacy.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
+class TermsView(View):
+    template_name = 'alumni/terms.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
     def post(self, request):
         form = DonationForm(request.POST)
         if form.is_valid():

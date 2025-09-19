@@ -45,30 +45,25 @@
       }
     } else if (value === 'self_employed') {
       log('[employment_fields] self employed');
+      // Remove all pop-ups for self employed (hide all extras)
       for (var k = 0; k < detailContainers.length; k++) {
-        // hide org (index 0), show job (1) and industry (2)
-        if (k === 0) {
-          detailContainers[k].style.display = 'none';
-          detailContainers[k].style.visibility = 'hidden';
-        } else if (k === 1 || k === 2) {
-          detailContainers[k].style.display = 'block';
-          detailContainers[k].style.visibility = 'visible';
-        }
+        detailContainers[k].style.display = 'none';
+        detailContainers[k].style.visibility = 'hidden';
       }
       if (otherContainer) {
-        otherContainer.style.display = 'block';
-        otherContainer.style.visibility = 'visible';
+        otherContainer.style.display = 'none';
+        otherContainer.style.visibility = 'hidden';
       }
     } else if (value === 'unemployed') {
       log('[employment_fields] not yet employed');
+      // Remove all pop-ups for not yet employed (hide all extras)
       for (var m = 0; m < detailContainers.length; m++) {
-        // hide all formal details (org, job, industry)
         detailContainers[m].style.display = 'none';
         detailContainers[m].style.visibility = 'hidden';
       }
       if (otherContainer) {
-        otherContainer.style.display = 'block';
-        otherContainer.style.visibility = 'visible';
+        otherContainer.style.display = 'none';
+        otherContainer.style.visibility = 'hidden';
       }
     } else if (value === 'other') {
       log('[employment_fields] other');

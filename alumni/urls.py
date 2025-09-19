@@ -17,4 +17,6 @@ urlpatterns = [
     path('stories/', views.StoriesView.as_view(), name='stories'),
     path('connect/', views.ConnectView.as_view(), name='connect'),
     path('donate/', views.DonateView.as_view(), name='donate'),
+    path('privacy/', views.PrivacyView.as_view(), name='privacy'),
+    path('terms/', views.TermsView.as_view(), name='terms'),
 ]

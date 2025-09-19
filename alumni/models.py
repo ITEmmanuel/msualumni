@@ -71,6 +71,14 @@ class IAROObjective(models.Model):
 
 class Alumni(models.Model):
     # Personal Information
+    SALUTATION_CHOICES = [
+        ('Mr', 'Mr.'),
+        ('Ms', 'Ms.'),
+        ('Mrs', 'Mrs.'),
+        ('Dr', 'Dr.'),
+        ('Prof', 'Prof.'),
+    ]
+    salutation = models.CharField(max_length=10, choices=SALUTATION_CHOICES, blank=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female')])
